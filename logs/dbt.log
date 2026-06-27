@@ -1,0 +1,11 @@
+[0m21:51:04.579734 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dd2ba90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dd339d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dd57350>]}
+
+
+============================== 21:51:04.581514 | be4395e3-e888-478f-a749-69b439517a65 ==============================
+[0m21:51:04.581514 [info ] [MainThread]: Running with dbt=1.8.0
+[0m21:51:04.581730 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'fail_fast': 'False', 'version_check': 'True', 'log_path': 'logs', 'debug': 'False', 'profiles_dir': '/Users/kaleab/.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'invocation_command': 'dbt init dbt_project', 'introspect': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'static_parser': 'True', 'send_anonymous_usage_stats': 'True'}
+[0m21:51:04.588154 [info ] [MainThread]: A project called dbt_project already exists here.
+[0m21:51:04.594577 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 0.041634083, "process_user_time": 0.39209, "process_kernel_time": 0.073653, "process_mem_max_rss": "107593728", "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m21:51:04.594772 [debug] [MainThread]: Command `dbt init` succeeded at 21:51:04.594734 after 0.04 seconds
+[0m21:51:04.594912 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dc2f0d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dd31bd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10dc3a810>]}
+[0m21:51:04.595032 [debug] [MainThread]: Flushing usage events

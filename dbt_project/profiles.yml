@@ -1,0 +1,12 @@
+dbt_project:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: energy_marts
+      host: localhost
+      port: 8123
+      user: default
+      password: ""
+      secure: false
+      verify: false

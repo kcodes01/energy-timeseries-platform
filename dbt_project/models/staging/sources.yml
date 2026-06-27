@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: raw_energy
+    database: energy
+    schema: raw_energy
+    tables:
+      - name: energy_timeseries
+        identifier: raw_energy___energy_timeseries
+        description: "Raw SMARD energy timeseries data loaded by dlt"
+        columns:
+          - name: timestamp
+            description: "Hour timestamp"
+          - name: value
+            description: "Value in EUR/MWh or MWh depending on filter"
+          - name: filter_id
+            description: "SMARD filter ID"
+          - name: filter_name
+            description: "SMARD filter name"
+          - name: unit
+            description: "Unit of measurement"
+          - name: category
+            description: "Data category: price, generation, consumption, forecast"
+          - name: region
+            description: "Region code"
+          - name: ingested_at
+            description: "When data was ingested"
