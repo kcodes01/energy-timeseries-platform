@@ -1,0 +1,91 @@
+# SMARD API Configuration
+SMARD_BASE_URL = "https://www.smard.de/app/chart_data"
+REGION = "DE"
+RESOLUTION = "hour"
+
+# Start date for data ingestion
+START_DATE = "2025-01-01"
+
+# 10 filters selected for trawa demo
+FILTERS = [
+    {
+        "id": 4169,
+        "name": "Market price: Germany/Luxembourg",
+        "unit": "EUR/MWh",
+        "category": "price"
+    },
+    {
+        "id": 4170,
+        "name": "Market price: Austria",
+        "unit": "EUR/MWh",
+        "category": "price"
+    },
+    {
+        "id": 4067,
+        "name": "Power generation: Onshore wind",
+        "unit": "MWh",
+        "category": "generation"
+    },
+    {
+        "id": 4068,
+        "name": "Electricity generation: Photovoltaics",
+        "unit": "MWh",
+        "category": "generation"
+    },
+    {
+        "id": 1225,
+        "name": "Power generation: Offshore wind",
+        "unit": "MWh",
+        "category": "generation"
+    },
+    {
+        "id": 410,
+        "name": "Power consumption: Total (grid load)",
+        "unit": "MWh",
+        "category": "consumption"
+    },
+    {
+        "id": 4359,
+        "name": "Power consumption: Residual load",
+        "unit": "MWh",
+        "category": "consumption"
+    },
+    {
+        "id": 4071,
+        "name": "Electricity generation: Natural gas",
+        "unit": "MWh",
+        "category": "generation"
+    },
+    {
+        "id": 5097,
+        "name": "Projected generation: Wind and photovoltaics",
+        "unit": "MWh",
+        "category": "forecast"
+    },
+    {
+        "id": 122,
+        "name": "Projected production: Total",
+        "unit": "MWh",
+        "category": "forecast"
+    },
+]
+
+# MinIO configuration
+MINIO_ENDPOINT = "http://localhost:9000"
+MINIO_ACCESS_KEY = "minioadmin"
+MINIO_SECRET_KEY = "minioadmin"
+MINIO_BUCKET = "trawa-energy-lake"
+
+# ClickHouse configuration
+CLICKHOUSE_HOST = "localhost"
+CLICKHOUSE_PORT = 8123
+CLICKHOUSE_DATABASE = "energy"
+CLICKHOUSE_USER = "default"
+CLICKHOUSE_PASSWORD = ""
+
+# Quality check thresholds
+MAX_NULL_THRESHOLD = 0.10  # 10% max nulls allowed
+MIN_PRICE_EUR_MWH = -500   # Negative prices allowed in energy markets
+MAX_PRICE_EUR_MWH = 3000   # Maximum realistic price
+MIN_MWH = 0                # Generation/consumption can't be negative
+MAX_MWH = 100000           # Maximum realistic MWh value
