@@ -76,16 +76,17 @@ MINIO_ACCESS_KEY = "minioadmin"
 MINIO_SECRET_KEY = "minioadmin"
 MINIO_BUCKET = "trawa-energy-lake"
 
-# ClickHouse configuration
+# ClickHouse configuration — no SSL for local
 CLICKHOUSE_HOST = "localhost"
-CLICKHOUSE_PORT = 8123
+CLICKHOUSE_PORT = 9002
 CLICKHOUSE_DATABASE = "energy"
 CLICKHOUSE_USER = "default"
 CLICKHOUSE_PASSWORD = ""
+CLICKHOUSE_SECURE = False
 
 # Quality check thresholds
-MAX_NULL_THRESHOLD = 0.10  # 10% max nulls allowed
-MIN_PRICE_EUR_MWH = -500   # Negative prices allowed in energy markets
-MAX_PRICE_EUR_MWH = 3000   # Maximum realistic price
-MIN_MWH = 0                # Generation/consumption can't be negative
-MAX_MWH = 100000           # Maximum realistic MWh value
+MAX_NULL_THRESHOLD = 0.10
+MIN_PRICE_EUR_MWH = -500
+MAX_PRICE_EUR_MWH = 3000
+MIN_MWH = 0
+MAX_MWH = 100000
