@@ -1,9 +1,7 @@
 import requests
 import polars as pl
 import dlt
-import io
 from datetime import datetime
-from minio import Minio
 from config import (
     SMARD_BASE_URL,
     REGION,
@@ -27,16 +25,19 @@ def get_cutoff_timestamp(date_str: str) -> int:
     dt = datetime.strptime(date_str, "%Y-%m-%d")
     return int(dt.timestamp() * 1000)
 
+
 def fetch_timestamps(filter_id: int) -> list[int]:
     url = f"{SMARD_BASE_URL}/{filter_id}/{REGION}/index_{RESOLUTION}.json"
     response = requests.get(url, timeout=30)
     response.raise_for_status()
     return response.json()["timestamps"]
 
+
 def filter_timestamps(timestamps: list[int], cutoff: int) -> list[int]:
     df = pl.DataFrame({"timestamp": timestamps})
     filtered = df.filter(pl.col("timestamp") >= cutoff)
     return filtered["timestamp"].to_list()
+
 
 def fetch_chunk(filter_id: int, timestamp: int) -> list:
     url = f"{SMARD_BASE_URL}/{filter_id}/{REGION}/{filter_id}_{REGION}_{RESOLUTION}_{timestamp}.json"
@@ -44,39 +45,8 @@ def fetch_chunk(filter_id: int, timestamp: int) -> list:
     response.raise_for_status()
     return response.json()["series"]
 
-# ── 2. MINIO CLIENT ──────────────────────────────────────────────────────────
 
-def get_minio_client() -> Minio:
-    return Minio(
-        MINIO_ENDPOINT.replace("http://", ""),
-        access_key=MINIO_ACCESS_KEY,
-        secret_key=MINIO_SECRET_KEY,
-        secure=False
-    )
-
-def save_to_minio(df: pl.DataFrame, filter_config: dict):
-    """Save cleaned DataFrame as Parquet to MinIO data lake."""
-    client = get_minio_client()
-    category = filter_config["category"]
-    filter_id = filter_config["id"]
-    date_str = datetime.utcnow().strftime("%Y/%m")
-    object_name = f"raw/{category}/{filter_id}/{date_str}/data.parquet"
-
-    buffer = io.BytesIO()
-    df.write_parquet(buffer)
-    buffer.seek(0)
-    size = buffer.getbuffer().nbytes
-
-    client.put_object(
-        MINIO_BUCKET,
-        object_name,
-        buffer,
-        size,
-        content_type="application/octet-stream"
-    )
-    print(f"   📦 MinIO: raw/{category}/{filter_id}/{date_str}/data.parquet")
-
-# ── 3. POLARS NORMALIZATION ──────────────────────────────────────────────────
+# ── 2. POLARS NORMALIZATION ──────────────────────────────────────────────────
 
 def normalize_series(
     series: list,
@@ -106,7 +76,8 @@ def normalize_series(
 
     return df
 
-# ── 4. QUALITY CHECKS ────────────────────────────────────────────────────────
+
+# ── 3. QUALITY CHECKS ────────────────────────────────────────────────────────
 
 def quality_check(df: pl.DataFrame, filter_config: dict) -> pl.DataFrame:
     total_rows = len(df)
@@ -145,7 +116,8 @@ def quality_check(df: pl.DataFrame, filter_config: dict) -> pl.DataFrame:
 
     return df
 
-# ── 5. FETCH ALL DATA ────────────────────────────────────────────────────────
+
+# ── 4. FETCH ALL DATA ────────────────────────────────────────────────────────
 
 def fetch_filter_data(filter_config: dict, cutoff: int) -> pl.DataFrame:
     filter_id = filter_config["id"]
@@ -169,15 +141,12 @@ def fetch_filter_data(filter_config: dict, cutoff: int) -> pl.DataFrame:
     combined = pl.concat(all_frames)
     print(f"   ✅ Fetched {len(combined):,} rows")
 
-    # Quality checks
     combined = quality_check(combined, filter_config)
-
-    # Save to MinIO data lake
-    save_to_minio(combined, filter_config)
 
     return combined
 
-# ── 6. DLT RESOURCE ─────────────────────────────────────────────────────────
+
+# ── 5. DLT RESOURCE ─────────────────────────────────────────────────────────
 
 @dlt.resource(
     name="energy_timeseries",
@@ -189,7 +158,8 @@ def energy_timeseries_resource(cutoff: int):
         df = fetch_filter_data(filter_config, cutoff)
         yield df.to_dicts()
 
-# ── 7. MAIN ──────────────────────────────────────────────────────────────────
+
+# ── 6. MAIN ──────────────────────────────────────────────────────────────────
 
 def run_pipeline():
     print("🚀 Starting Energy Timeseries Platform Pipeline")
@@ -198,9 +168,22 @@ def run_pipeline():
 
     cutoff = get_cutoff_timestamp(START_DATE)
 
+    # MinIO staging destination
+    staging = dlt.destinations.filesystem(
+        bucket_url=f"s3://{MINIO_BUCKET}",
+        credentials={
+            "aws_access_key_id": MINIO_ACCESS_KEY,
+            "aws_secret_access_key": MINIO_SECRET_KEY,
+            "endpoint_url": MINIO_ENDPOINT,
+            "region_name": "us-east-1",
+        }
+    )
+
+    # ClickHouse primary destination
     pipeline = dlt.pipeline(
         pipeline_name="energy_timeseries",
         destination="clickhouse",
+        staging=staging,
         dataset_name="raw_energy"
     )
 
@@ -208,6 +191,7 @@ def run_pipeline():
     load_info = pipeline.run(energy_timeseries_resource(cutoff=cutoff))
     print(f"✅ Load complete: {load_info}")
     print("\n🎉 Pipeline complete!")
+
 
 if __name__ == "__main__":
     run_pipeline()
