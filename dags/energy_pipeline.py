@@ -3,36 +3,25 @@ from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 import subprocess
 import sys
+import os
 import requests
 
 SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
 
 def send_slack(message: str, color: str = "good"):
     requests.post(SLACK_WEBHOOK_URL, json={
-        "attachments": [{
-            "color": color,
-            "text": message
-        }]
+        "attachments": [{"color": color, "text": message}]
     })
 
 def on_failure_callback(context):
     task_id = context['task_instance'].task_id
     dag_id = context['dag'].dag_id
-    error = str(context.get('exception', 'Unknown error'))
-    send_slack(
-        f"🔴 *Airflow Task Failed*\n"
-        f"• DAG: {dag_id}\n"
-        f"• Task: {task_id}\n"
-        f"• Error: {error[:200]}",
-        color="danger"
-    )
+    error = str(context.get('exception', 'Unknown error'))[:200]
+    send_slack(f"🔴 *Airflow Task Failed*\n• DAG: {dag_id}\n• Task: {task_id}\n• Error: {error}", "danger")
 
 def on_success_callback(context):
     task_id = context['task_instance'].task_id
-    send_slack(
-        f"✅ *Task Completed*: {task_id}",
-        color="#36a64f"
-    )
+    send_slack(f"✅ *Task Completed*: {task_id}", "#36a64f")
 
 default_args = {
     'owner': 'kaleab',
@@ -42,12 +31,26 @@ default_args = {
     'on_failure_callback': on_failure_callback,
 }
 
+# Environment variables for pipeline running inside Docker
+PIPELINE_ENV = {
+    **os.environ,
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__HOST': 'clickhouse',
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__PORT': '9000',
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT': '8123',
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE': 'energy',
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME': 'default',
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD': '',
+    'DESTINATION__CLICKHOUSE__CREDENTIALS__SECURE': '0',
+    'MINIO_ENDPOINT': 'http://minio:9000',
+}
+
 def run_smard_pipeline():
     result = subprocess.run(
         [sys.executable, "/opt/airflow/pipeline/smard_pipeline.py"],
         capture_output=True,
         text=True,
-        cwd="/opt/airflow/pipeline"
+        cwd="/opt/airflow/pipeline",
+        env=PIPELINE_ENV
     )
     print(result.stdout)
     if result.returncode != 0:
@@ -59,7 +62,8 @@ def run_dbt_run():
          "--project-dir", "/opt/airflow/dbt_project",
          "--profiles-dir", "/opt/airflow/dbt_project"],
         capture_output=True,
-        text=True
+        text=True,
+        env=PIPELINE_ENV
     )
     print(result.stdout)
     if result.returncode != 0:
@@ -71,7 +75,8 @@ def run_dbt_test():
          "--project-dir", "/opt/airflow/dbt_project",
          "--profiles-dir", "/opt/airflow/dbt_project"],
         capture_output=True,
-        text=True
+        text=True,
+        env=PIPELINE_ENV
     )
     print(result.stdout)
     if result.returncode != 0:
