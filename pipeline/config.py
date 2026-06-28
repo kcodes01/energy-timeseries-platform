@@ -1,3 +1,5 @@
+import os
+
 # SMARD API Configuration
 SMARD_BASE_URL = "https://www.smard.de/app/chart_data"
 REGION = "DE"
@@ -71,7 +73,6 @@ FILTERS = [
 ]
 
 # MinIO configuration
-import os
 MINIO_ENDPOINT = os.environ.get("MINIO_ENDPOINT", "http://localhost:9000")
 MINIO_ACCESS_KEY = "minioadmin"
 MINIO_SECRET_KEY = "minioadmin"

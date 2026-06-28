@@ -4723,3 +4723,1032 @@ EXCHANGE TABLES `energy_marts_marts`.`mart_flexibility_signals__dbt_backup` AND 
 [0m22:04:51.570917 [debug] [MainThread]: Command `dbt run` succeeded at 22:04:51.570822 after 0.70 seconds
 [0m22:04:51.571206 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10e547450>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10d17e290>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10d3c0cd0>]}
 [0m22:04:51.571494 [debug] [MainThread]: Flushing usage events
+[0m09:28:20.406280 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8cf8cf80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8e127f20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8fdfb7d0>]}
+
+
+============================== 09:28:20.410052 | 8ac89595-51de-4fc6-b1dc-43b053fa76b8 ==============================
+[0m09:28:20.410052 [info ] [MainThread]: Running with dbt=1.11.11
+[0m09:28:20.410941 [debug] [MainThread]: running dbt with arguments {'warn_error': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'fail_fast': 'False', 'empty': 'False', 'log_cache_events': 'False', 'log_format': 'default', 'introspect': 'True', 'indirect_selection': 'eager', 'write_json': 'True', 'no_print': 'None', 'target_path': 'None', 'printer_width': '80', 'debug': 'False', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'version_check': 'True', 'invocation_command': 'dbt run --project-dir /opt/airflow/dbt_project --profiles-dir /opt/airflow/dbt_project', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/opt/airflow/dbt_project', 'use_experimental_parser': 'False', 'use_colors': 'True', 'log_path': '/opt/airflow/dbt_project/logs', 'static_parser': 'True'}
+[0m09:28:20.499321 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '8ac89595-51de-4fc6-b1dc-43b053fa76b8', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8cb54440>]}
+[0m09:28:20.525943 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '8ac89595-51de-4fc6-b1dc-43b053fa76b8', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8da17f20>]}
+[0m09:28:20.526420 [info ] [MainThread]: Registered adapter: clickhouse=1.10.1
+[0m09:28:20.564752 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m09:28:20.594762 [info ] [MainThread]: Unable to do partial parsing because of a version mismatch
+[0m09:28:20.595086 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '8ac89595-51de-4fc6-b1dc-43b053fa76b8', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8dadcb30>]}
+[0m09:28:21.065684 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '8ac89595-51de-4fc6-b1dc-43b053fa76b8', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8b00a120>]}
+[0m09:28:21.095867 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:28:21.096932 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:28:21.104445 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '8ac89595-51de-4fc6-b1dc-43b053fa76b8', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8aefea20>]}
+[0m09:28:21.104695 [info ] [MainThread]: Found 7 models, 1 source, 530 macros
+[0m09:28:21.104883 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '8ac89595-51de-4fc6-b1dc-43b053fa76b8', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8c4f3560>]}
+[0m09:28:21.105624 [info ] [MainThread]: 
+[0m09:28:21.105816 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m09:28:21.105966 [info ] [MainThread]: 
+[0m09:28:21.106171 [debug] [MainThread]: Acquiring new clickhouse connection 'master'
+[0m09:28:21.108672 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list_'
+[0m09:28:21.112153 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:28:21.121942 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=a728ce45-251f-4647-b05d-5f47be13df9f (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff8aefa6c0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:28:22.124406 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:28:22.126717 [debug] [ThreadPool]: Opening a new connection, currently in state fail
+[0m09:28:22.127890 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=1253c019-73aa-4cad-a841-409e6251b7f4 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff8a203470>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:28:23.132863 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:28:23.137037 [debug] [ThreadPool]: Opening a new connection, currently in state fail
+[0m09:28:23.139046 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=d4e28acd-0355-447f-b7c5-62b00a712956 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff8a229640>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:28:24.145727 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:28:24.147628 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m09:28:24.148535 [debug] [MainThread]: Connection 'list_' was left open.
+[0m09:28:24.149030 [debug] [MainThread]: On list_: No close available on handle
+[0m09:28:24.149680 [info ] [MainThread]: 
+[0m09:28:24.150271 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 3.04 seconds (3.04s).
+[0m09:28:24.151093 [error] [MainThread]: Encountered an error:
+Database Error
+  Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=05f8a697-7d46-499e-8523-91546388eb52 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff8ae11af0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:28:24.155992 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 3.7752032, "process_in_blocks": "16352", "process_kernel_time": 0.159132, "process_mem_max_rss": "126116", "process_out_blocks": "3553", "process_user_time": 1.474497}
+[0m09:28:24.158147 [debug] [MainThread]: Command `dbt run` failed at 09:28:24.157923 after 3.78 seconds
+[0m09:28:24.159131 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8d859280>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8cf461e0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff8c5b5340>]}
+[0m09:28:24.159766 [debug] [MainThread]: Flushing usage events
+[0m09:28:24.793296 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:33:26.258607 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa2bb5100>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa2bb5400>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa2bb52b0>]}
+
+
+============================== 09:33:26.262095 | 9da002cd-df2d-48dd-850b-0ff7ddc3c75b ==============================
+[0m09:33:26.262095 [info ] [MainThread]: Running with dbt=1.11.11
+[0m09:33:26.262360 [debug] [MainThread]: running dbt with arguments {'introspect': 'True', 'write_json': 'True', 'invocation_command': 'dbt run --project-dir /opt/airflow/dbt_project --profiles-dir /opt/airflow/dbt_project', 'log_format': 'default', 'send_anonymous_usage_stats': 'True', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'debug': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_cache_events': 'False', 'partial_parse': 'True', 'static_parser': 'True', 'fail_fast': 'False', 'empty': 'False', 'log_path': '/opt/airflow/dbt_project/logs', 'use_colors': 'True', 'version_check': 'True', 'target_path': 'None', 'printer_width': '80', 'quiet': 'False', 'no_print': 'None', 'profiles_dir': '/opt/airflow/dbt_project', 'warn_error': 'None', 'cache_selected_only': 'False'}
+[0m09:33:26.343657 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '9da002cd-df2d-48dd-850b-0ff7ddc3c75b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa2aeeed0>]}
+[0m09:33:26.369111 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '9da002cd-df2d-48dd-850b-0ff7ddc3c75b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa2be3dd0>]}
+[0m09:33:26.369603 [info ] [MainThread]: Registered adapter: clickhouse=1.10.1
+[0m09:33:26.399924 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m09:33:26.446785 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m09:33:26.447022 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m09:33:26.447199 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m09:33:26.459896 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '9da002cd-df2d-48dd-850b-0ff7ddc3c75b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa28ea330>]}
+[0m09:33:26.491617 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:33:26.492511 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:33:26.498538 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '9da002cd-df2d-48dd-850b-0ff7ddc3c75b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa26aea80>]}
+[0m09:33:26.498788 [info ] [MainThread]: Found 7 models, 1 source, 530 macros
+[0m09:33:26.498973 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '9da002cd-df2d-48dd-850b-0ff7ddc3c75b', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa2c47800>]}
+[0m09:33:26.499708 [info ] [MainThread]: 
+[0m09:33:26.499892 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m09:33:26.500033 [info ] [MainThread]: 
+[0m09:33:26.500233 [debug] [MainThread]: Acquiring new clickhouse connection 'master'
+[0m09:33:26.502444 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list_'
+[0m09:33:26.506845 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:33:26.520781 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=1367c696-e867-4420-ba8b-9d88000819ec (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffffa23ba840>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:33:27.526113 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:33:27.530130 [debug] [ThreadPool]: Opening a new connection, currently in state fail
+[0m09:33:27.531647 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=f8ed6bee-718c-4477-b598-2de73496831d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffffa182c6e0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:33:28.536992 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:33:28.544174 [debug] [ThreadPool]: Opening a new connection, currently in state fail
+[0m09:33:28.546963 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=0badc8dc-8587-47e2-9326-0b9ee38d2bee (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffffa184e810>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:33:29.551418 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:33:29.552846 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m09:33:29.553470 [debug] [MainThread]: Connection 'list_' was left open.
+[0m09:33:29.553962 [debug] [MainThread]: On list_: No close available on handle
+[0m09:33:29.554378 [info ] [MainThread]: 
+[0m09:33:29.554812 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 3.05 seconds (3.05s).
+[0m09:33:29.555403 [error] [MainThread]: Encountered an error:
+Database Error
+  Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=b67626e0-5ca3-4626-bf56-fe62498db8d5 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffffa2432e40>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:33:29.556755 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 3.3226392, "process_in_blocks": "0", "process_kernel_time": 0.187079, "process_mem_max_rss": "119348", "process_out_blocks": "1288", "process_user_time": 0.956518}
+[0m09:33:29.557623 [debug] [MainThread]: Command `dbt run` failed at 09:33:29.557519 after 3.32 seconds
+[0m09:33:29.558069 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa38f5f40>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa23a49b0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffa250fc20>]}
+[0m09:33:29.558431 [debug] [MainThread]: Flushing usage events
+[0m09:33:30.232110 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:38:32.144002 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff92a3af90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff943ab470>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff92765280>]}
+
+
+============================== 09:38:32.147030 | 29e1778b-6883-4c13-8136-c4fed2c75b08 ==============================
+[0m09:38:32.147030 [info ] [MainThread]: Running with dbt=1.11.11
+[0m09:38:32.147318 [debug] [MainThread]: running dbt with arguments {'indirect_selection': 'eager', 'quiet': 'False', 'empty': 'False', 'debug': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'use_experimental_parser': 'False', 'no_print': 'None', 'target_path': 'None', 'send_anonymous_usage_stats': 'True', 'printer_width': '80', 'log_cache_events': 'False', 'version_check': 'True', 'fail_fast': 'False', 'warn_error': 'None', 'static_parser': 'True', 'use_colors': 'True', 'introspect': 'True', 'invocation_command': 'dbt run --project-dir /opt/airflow/dbt_project --profiles-dir /opt/airflow/dbt_project', 'partial_parse': 'True', 'cache_selected_only': 'False', 'write_json': 'True', 'log_path': '/opt/airflow/dbt_project/logs', 'log_format': 'default', 'profiles_dir': '/opt/airflow/dbt_project'}
+[0m09:38:32.229953 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '29e1778b-6883-4c13-8136-c4fed2c75b08', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9116fc20>]}
+[0m09:38:32.254800 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '29e1778b-6883-4c13-8136-c4fed2c75b08', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff922a6540>]}
+[0m09:38:32.255145 [info ] [MainThread]: Registered adapter: clickhouse=1.10.1
+[0m09:38:32.281309 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m09:38:32.324198 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m09:38:32.324449 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m09:38:32.324650 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m09:38:32.337646 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '29e1778b-6883-4c13-8136-c4fed2c75b08', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff90ebd550>]}
+[0m09:38:32.368105 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:38:32.368885 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:38:32.375217 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '29e1778b-6883-4c13-8136-c4fed2c75b08', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff90c3aae0>]}
+[0m09:38:32.375458 [info ] [MainThread]: Found 7 models, 1 source, 530 macros
+[0m09:38:32.375666 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '29e1778b-6883-4c13-8136-c4fed2c75b08', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff90c36f60>]}
+[0m09:38:32.376483 [info ] [MainThread]: 
+[0m09:38:32.376659 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m09:38:32.376844 [info ] [MainThread]: 
+[0m09:38:32.377064 [debug] [MainThread]: Acquiring new clickhouse connection 'master'
+[0m09:38:32.379279 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list_'
+[0m09:38:32.383037 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:38:32.392212 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=aa31dfdd-a299-4f75-9699-f15baa7db63d (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff90ebd1f0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:38:33.394949 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:38:33.396989 [debug] [ThreadPool]: Opening a new connection, currently in state fail
+[0m09:38:33.397885 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=b0ebc959-be66-43e7-aaf1-8767cb71f219 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff8bf0c7d0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:38:34.400925 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:38:34.406597 [debug] [ThreadPool]: Opening a new connection, currently in state fail
+[0m09:38:34.408399 [debug] [ThreadPool]: dbt_clickhouse adapter: Got a retryable error when attempting to open a clickhouse connection.
+1 attempts remaining. Retrying in 1 seconds.
+Error:
+Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=bfaacb10-0f5f-43f9-aee4-4c24afd52ac3 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff8bf2e6f0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:38:35.415852 [debug] [ThreadPool]: dbt_clickhouse adapter: Error running SQL: macro list_schemas
+[0m09:38:35.417377 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m09:38:35.418094 [debug] [MainThread]: Connection 'list_' was left open.
+[0m09:38:35.418572 [debug] [MainThread]: On list_: No close available on handle
+[0m09:38:35.419119 [info ] [MainThread]: 
+[0m09:38:35.419645 [info ] [MainThread]: Finished running  in 0 hours 0 minutes and 3.04 seconds (3.04s).
+[0m09:38:35.420345 [error] [MainThread]: Encountered an error:
+Database Error
+  Error HTTPConnectionPool(host='localhost', port=8123): Max retries exceeded with url: /?query_id=a4fbd27b-cd93-406f-b35b-3f97d10d3e1f (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0xffff90b62ff0>: Failed to establish a new connection: [Errno 111] Connection refused')) executing HTTP request attempt 1 (http://localhost:8123)
+[0m09:38:35.421731 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": false, "command_wall_clock_time": 3.30688, "process_in_blocks": "0", "process_kernel_time": 0.189218, "process_mem_max_rss": "119356", "process_out_blocks": "1288", "process_user_time": 0.936027}
+[0m09:38:35.422821 [debug] [MainThread]: Command `dbt run` failed at 09:38:35.422716 after 3.31 seconds
+[0m09:38:35.423387 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9134d190>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff90b62d20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff90ad4950>]}
+[0m09:38:35.423872 [debug] [MainThread]: Flushing usage events
+[0m09:38:36.104721 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:48:34.178355 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff989c7170>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff98e7f7a0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff97faf950>]}
+
+
+============================== 09:48:34.182810 | 6b3b3f95-b9a0-445b-b3d6-778064d66f4c ==============================
+[0m09:48:34.182810 [info ] [MainThread]: Running with dbt=1.11.11
+[0m09:48:34.183892 [debug] [MainThread]: running dbt with arguments {'invocation_command': 'dbt run --project-dir /opt/airflow/dbt_project --profiles-dir /opt/airflow/dbt_project', 'introspect': 'True', 'quiet': 'False', 'log_cache_events': 'False', 'no_print': 'None', 'printer_width': '80', 'partial_parse': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_format': 'default', 'fail_fast': 'False', 'log_path': '/opt/airflow/dbt_project/logs', 'version_check': 'True', 'empty': 'False', 'use_experimental_parser': 'False', 'debug': 'False', 'indirect_selection': 'eager', 'target_path': 'None', 'send_anonymous_usage_stats': 'True', 'warn_error': 'None', 'cache_selected_only': 'False', 'use_colors': 'True', 'write_json': 'True', 'profiles_dir': '/opt/airflow/dbt_project', 'static_parser': 'True'}
+[0m09:48:34.277664 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff972d8c50>]}
+[0m09:48:34.303974 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff97090890>]}
+[0m09:48:34.304470 [info ] [MainThread]: Registered adapter: clickhouse=1.10.1
+[0m09:48:34.339810 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m09:48:34.376335 [info ] [MainThread]: Unable to do partial parsing because profile has changed
+[0m09:48:34.376681 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'partial_parser', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff96caba70>]}
+[0m09:48:34.845843 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff96bd5670>]}
+[0m09:48:34.876403 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:48:34.877699 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:48:34.885895 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff95776b70>]}
+[0m09:48:34.886174 [info ] [MainThread]: Found 7 models, 1 source, 530 macros
+[0m09:48:34.886391 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff956456a0>]}
+[0m09:48:34.887150 [info ] [MainThread]: 
+[0m09:48:34.887337 [info ] [MainThread]: Concurrency: 1 threads (target='dev')
+[0m09:48:34.887512 [info ] [MainThread]: 
+[0m09:48:34.887752 [debug] [MainThread]: Acquiring new clickhouse connection 'master'
+[0m09:48:34.890366 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list_'
+[0m09:48:34.894384 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:48:34.952369 [debug] [ThreadPool]: dbt_clickhouse adapter: On list_: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "connection_name": "list_"} */
+
+    select name from system.databases
+  ...
+[0m09:48:34.953550 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:34.975813 [debug] [ThreadPool]: dbt_clickhouse adapter: On list_: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "connection_name": "list_"} */
+
+    select name from system.databases
+  ...
+[0m09:48:34.977145 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:34.978310 [debug] [ThreadPool]: dbt_clickhouse adapter: On list_: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "connection_name": "list_"} */
+
+    select name from system.databases
+  ...
+[0m09:48:34.979194 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:34.980172 [debug] [ThreadPool]: Acquiring new clickhouse connection 'list__energy_marts_marts'
+[0m09:48:34.982908 [debug] [ThreadPool]: Opening a new connection, currently in state init
+[0m09:48:34.989645 [debug] [ThreadPool]: dbt_clickhouse adapter: On list__energy_marts_marts: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "connection_name": "list__energy_marts_marts"} */
+with mv_sources as (
+      -- Find all MVs and their target tables (database and name of the MV, plus the SELECT SQL)
+      select
+        name as mv_name,
+        database as mv_database,
+        any(as_select) as mv_sql,
+        any(replaceRegexpOne(create_table_query, '.*TO\\s+`?([^`\\s(]+)`?\\.`?([^`\\s(]+)`?.*', '\\1.\\2')) as target_fqn
+      
+      from system.tables
+      
+      where engine = 'MaterializedView'
+        and create_table_query like '%TO %'
+      group by mv_name, mv_database
+    )
+    select
+      t.name as name,
+      t.database as schema,
+      multiIf(
+        t.engine = 'MaterializedView', 'materialized_view',
+        t.engine = 'View', 'view',
+        t.engine = 'Dictionary', 'dictionary',
+        'table'
+      ) as type,
+      db.engine as db_engine,
+      groupArrayIf(
+        map('schema', mv_sources.mv_database, 'name', mv_sources.mv_name, 'sql', mv_sources.mv_sql),
+        mv_sources.mv_name != ''
+      ) as mvs_pointing_to_it,0 as is_on_cluster
+        from system.tables as t
+      
+        join system.databases as db on t.database = db.name
+        left join mv_sources on mv_sources.target_fqn = concat(t.database, '.', t.name)
+      where schema = 'energy_marts_marts'
+      group by name, schema, type, db_engine
+
+  ...
+[0m09:48:35.031523 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.04 seconds
+[0m09:48:35.032521 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list__energy_marts_marts, now list__energy_marts_intermediate)
+[0m09:48:35.033846 [debug] [ThreadPool]: dbt_clickhouse adapter: On list__energy_marts_intermediate: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "connection_name": "list__energy_marts_intermediate"} */
+with mv_sources as (
+      -- Find all MVs and their target tables (database and name of the MV, plus the SELECT SQL)
+      select
+        name as mv_name,
+        database as mv_database,
+        any(as_select) as mv_sql,
+        any(replaceRegexpOne(create_table_query, '.*TO\\s+`?([^`\\s(]+)`?\\.`?([^`\\s(]+)`?.*', '\\1.\\2')) as target_fqn
+      
+      from system.tables
+      
+      where engine = 'MaterializedView'
+        and create_table_query like '%TO %'
+      group by mv_name, mv_database
+    )
+    select
+      t.name as name,
+      t.database as schema,
+      multiIf(
+        t.engine = 'MaterializedView', 'materialized_view',
+        t.engine = 'View', 'view',
+        t.engine = 'Dictionary', 'dictionary',
+        'table'
+      ) as type,
+      db.engine as db_engine,
+      groupArrayIf(
+        map('schema', mv_sources.mv_database, 'name', mv_sources.mv_name, 'sql', mv_sources.mv_sql),
+        mv_sources.mv_name != ''
+      ) as mvs_pointing_to_it,0 as is_on_cluster
+        from system.tables as t
+      
+        join system.databases as db on t.database = db.name
+        left join mv_sources on mv_sources.target_fqn = concat(t.database, '.', t.name)
+      where schema = 'energy_marts_intermediate'
+      group by name, schema, type, db_engine
+
+  ...
+[0m09:48:35.042859 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m09:48:35.044052 [debug] [ThreadPool]: Re-using an available connection from the pool (formerly list__energy_marts_intermediate, now list__energy_marts_staging)
+[0m09:48:35.045369 [debug] [ThreadPool]: dbt_clickhouse adapter: On list__energy_marts_staging: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "connection_name": "list__energy_marts_staging"} */
+with mv_sources as (
+      -- Find all MVs and their target tables (database and name of the MV, plus the SELECT SQL)
+      select
+        name as mv_name,
+        database as mv_database,
+        any(as_select) as mv_sql,
+        any(replaceRegexpOne(create_table_query, '.*TO\\s+`?([^`\\s(]+)`?\\.`?([^`\\s(]+)`?.*', '\\1.\\2')) as target_fqn
+      
+      from system.tables
+      
+      where engine = 'MaterializedView'
+        and create_table_query like '%TO %'
+      group by mv_name, mv_database
+    )
+    select
+      t.name as name,
+      t.database as schema,
+      multiIf(
+        t.engine = 'MaterializedView', 'materialized_view',
+        t.engine = 'View', 'view',
+        t.engine = 'Dictionary', 'dictionary',
+        'table'
+      ) as type,
+      db.engine as db_engine,
+      groupArrayIf(
+        map('schema', mv_sources.mv_database, 'name', mv_sources.mv_name, 'sql', mv_sources.mv_sql),
+        mv_sources.mv_name != ''
+      ) as mvs_pointing_to_it,0 as is_on_cluster
+        from system.tables as t
+      
+        join system.databases as db on t.database = db.name
+        left join mv_sources on mv_sources.target_fqn = concat(t.database, '.', t.name)
+      where schema = 'energy_marts_staging'
+      group by name, schema, type, db_engine
+
+  ...
+[0m09:48:35.052586 [debug] [ThreadPool]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m09:48:35.053515 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff954dc290>]}
+[0m09:48:35.056359 [debug] [Thread-1 (]: Began running node model.dbt_project.stg_energy_timeseries
+[0m09:48:35.056670 [info ] [Thread-1 (]: 1 of 7 START sql view model `energy_marts_staging`.`stg_energy_timeseries` ..... [RUN]
+[0m09:48:35.056929 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly list__energy_marts_staging, now model.dbt_project.stg_energy_timeseries)
+[0m09:48:35.057090 [debug] [Thread-1 (]: Began compiling node model.dbt_project.stg_energy_timeseries
+[0m09:48:35.085532 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.stg_energy_timeseries"
+[0m09:48:35.086425 [debug] [Thread-1 (]: Began executing node model.dbt_project.stg_energy_timeseries
+[0m09:48:35.091247 [debug] [Thread-1 (]: Relation stg_energy_timeseries already exists, replacing it
+[0m09:48:35.094676 [debug] [Thread-1 (]: Model mvs to replace ['stg_energy_timeseries_mv']
+[0m09:48:35.095541 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.stg_energy_timeseries: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.stg_energy_timeseries"} */
+
+    
+    select name
+    from system.tables
+    where engine = 'MaterializedView'
+      and extract(create_table_query, 'TO\\s+([^\\s(]+)') = 'energy_marts_staging.stg_energy_timeseries'
+  
+  ...
+[0m09:48:35.098671 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.104128 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.stg_energy_timeseries"
+[0m09:48:35.104643 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.stg_energy_timeseries: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.stg_energy_timeseries"} */
+
+
+  create or replace view `energy_marts_staging`.`stg_energy_timeseries` 
+  
+    
+  
+  
+    
+    
+  as (
+    with source as (
+    select * from `energy`.`raw_energy___energy_timeseries`
+),
+
+cleaned as (
+    select
+        timestamp,
+        filter_id,
+        filter_name,
+        value,
+        unit,
+        category,
+        region,
+        resolution,
+        ingested_at,
+        -- derived columns
+        toDate(timestamp)           as date,
+        toHour(timestamp)           as hour_of_day,
+        toDayOfWeek(timestamp)      as day_of_week,
+        toMonth(timestamp)          as month,
+        toYear(timestamp)           as year
+    from source
+    where value is not null
+)
+
+select * from cleaned
+    
+  )
+      
+      
+                    -- end_of_sql
+                    
+                    ...
+[0m09:48:35.112217 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m09:48:35.120492 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff99fbe0c0>]}
+[0m09:48:35.120851 [info ] [Thread-1 (]: 1 of 7 OK created sql view model `energy_marts_staging`.`stg_energy_timeseries`  [[32mOK[0m in 0.06s]
+[0m09:48:35.121137 [debug] [Thread-1 (]: Finished running node model.dbt_project.stg_energy_timeseries
+[0m09:48:35.121580 [debug] [Thread-1 (]: Began running node model.dbt_project.int_hourly_prices
+[0m09:48:35.121777 [info ] [Thread-1 (]: 2 of 7 START sql view model `energy_marts_intermediate`.`int_hourly_prices` .... [RUN]
+[0m09:48:35.121953 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.dbt_project.stg_energy_timeseries, now model.dbt_project.int_hourly_prices)
+[0m09:48:35.122129 [debug] [Thread-1 (]: Began compiling node model.dbt_project.int_hourly_prices
+[0m09:48:35.123363 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.int_hourly_prices"
+[0m09:48:35.124028 [debug] [Thread-1 (]: Began executing node model.dbt_project.int_hourly_prices
+[0m09:48:35.125421 [debug] [Thread-1 (]: Relation int_hourly_prices already exists, replacing it
+[0m09:48:35.125716 [debug] [Thread-1 (]: Model mvs to replace ['int_hourly_prices_mv']
+[0m09:48:35.126045 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.int_hourly_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.int_hourly_prices"} */
+
+    
+    select name
+    from system.tables
+    where engine = 'MaterializedView'
+      and extract(create_table_query, 'TO\\s+([^\\s(]+)') = 'energy_marts_intermediate.int_hourly_prices'
+  
+  ...
+[0m09:48:35.128087 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.129075 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.int_hourly_prices"
+[0m09:48:35.129704 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.int_hourly_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.int_hourly_prices"} */
+
+
+  create or replace view `energy_marts_intermediate`.`int_hourly_prices` 
+  
+    
+  
+  
+    
+    
+  as (
+    with prices as (
+    select * from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'price'
+    and filter_id = 4169  -- Germany/Luxembourg
+)
+
+select
+    date,
+    hour_of_day,
+    avg(value)          as avg_price_eur_mwh,
+    min(value)          as min_price_eur_mwh,
+    max(value)          as max_price_eur_mwh,
+    count(*)            as data_points
+from prices
+group by date, hour_of_day
+order by date, hour_of_day
+    
+  )
+      
+      
+                    -- end_of_sql
+                    
+                    ...
+[0m09:48:35.136592 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m09:48:35.137712 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff955efce0>]}
+[0m09:48:35.138060 [info ] [Thread-1 (]: 2 of 7 OK created sql view model `energy_marts_intermediate`.`int_hourly_prices`  [[32mOK[0m in 0.02s]
+[0m09:48:35.138405 [debug] [Thread-1 (]: Finished running node model.dbt_project.int_hourly_prices
+[0m09:48:35.138692 [debug] [Thread-1 (]: Began running node model.dbt_project.int_renewable_generation
+[0m09:48:35.139129 [info ] [Thread-1 (]: 3 of 7 START sql view model `energy_marts_intermediate`.`int_renewable_generation`  [RUN]
+[0m09:48:35.139382 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.dbt_project.int_hourly_prices, now model.dbt_project.int_renewable_generation)
+[0m09:48:35.139573 [debug] [Thread-1 (]: Began compiling node model.dbt_project.int_renewable_generation
+[0m09:48:35.140836 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.int_renewable_generation"
+[0m09:48:35.141261 [debug] [Thread-1 (]: Began executing node model.dbt_project.int_renewable_generation
+[0m09:48:35.142192 [debug] [Thread-1 (]: Relation int_renewable_generation already exists, replacing it
+[0m09:48:35.142408 [debug] [Thread-1 (]: Model mvs to replace ['int_renewable_generation_mv']
+[0m09:48:35.142629 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.int_renewable_generation: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.int_renewable_generation"} */
+
+    
+    select name
+    from system.tables
+    where engine = 'MaterializedView'
+      and extract(create_table_query, 'TO\\s+([^\\s(]+)') = 'energy_marts_intermediate.int_renewable_generation'
+  
+  ...
+[0m09:48:35.144214 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.144967 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.int_renewable_generation"
+[0m09:48:35.145403 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.int_renewable_generation: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.int_renewable_generation"} */
+
+
+  create or replace view `energy_marts_intermediate`.`int_renewable_generation` 
+  
+    
+  
+  
+    
+    
+  as (
+    with generation as (
+    select * from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'generation'
+    and filter_id in (4067, 4068, 1225)
+)
+
+select
+    timestamp,
+    date,
+    hour_of_day,
+    if(filter_id = 4067, value, 0)   as onshore_wind_mwh,
+    if(filter_id = 4068, value, 0)   as solar_mwh,
+    if(filter_id = 1225, value, 0)   as offshore_wind_mwh,
+    value                             as total_renewable_mwh
+from generation
+    
+  )
+      
+      
+                    -- end_of_sql
+                    
+                    ...
+[0m09:48:35.151574 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m09:48:35.152736 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff9578f3e0>]}
+[0m09:48:35.153031 [info ] [Thread-1 (]: 3 of 7 OK created sql view model `energy_marts_intermediate`.`int_renewable_generation`  [[32mOK[0m in 0.01s]
+[0m09:48:35.153295 [debug] [Thread-1 (]: Finished running node model.dbt_project.int_renewable_generation
+[0m09:48:35.153473 [debug] [Thread-1 (]: Began running node model.dbt_project.int_residual_load
+[0m09:48:35.153740 [info ] [Thread-1 (]: 4 of 7 START sql view model `energy_marts_intermediate`.`int_residual_load` .... [RUN]
+[0m09:48:35.153925 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.dbt_project.int_renewable_generation, now model.dbt_project.int_residual_load)
+[0m09:48:35.154080 [debug] [Thread-1 (]: Began compiling node model.dbt_project.int_residual_load
+[0m09:48:35.155251 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.int_residual_load"
+[0m09:48:35.155762 [debug] [Thread-1 (]: Began executing node model.dbt_project.int_residual_load
+[0m09:48:35.157198 [debug] [Thread-1 (]: Relation int_residual_load already exists, replacing it
+[0m09:48:35.157425 [debug] [Thread-1 (]: Model mvs to replace ['int_residual_load_mv']
+[0m09:48:35.157682 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.int_residual_load: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.int_residual_load"} */
+
+    
+    select name
+    from system.tables
+    where engine = 'MaterializedView'
+      and extract(create_table_query, 'TO\\s+([^\\s(]+)') = 'energy_marts_intermediate.int_residual_load'
+  
+  ...
+[0m09:48:35.159152 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.159892 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.int_residual_load"
+[0m09:48:35.160294 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.int_residual_load: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.int_residual_load"} */
+
+
+  create or replace view `energy_marts_intermediate`.`int_residual_load` 
+  
+    
+  
+  
+    
+    
+  as (
+    with consumption as (
+    select
+        timestamp,
+        date,
+        hour_of_day,
+        sumIf(value, filter_id = 410)   as total_load_mwh,
+        sumIf(value, filter_id = 4359)  as residual_load_mwh
+    from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'consumption'
+    group by timestamp, date, hour_of_day
+)
+
+select
+    timestamp,
+    date,
+    hour_of_day,
+    total_load_mwh,
+    residual_load_mwh,
+    -- renewable coverage
+    total_load_mwh - residual_load_mwh  as renewable_coverage_mwh,
+    round(
+        (total_load_mwh - residual_load_mwh) / nullIf(total_load_mwh, 0) * 100, 2
+    )                                    as renewable_pct
+from consumption
+order by timestamp
+    
+  )
+      
+      
+                    -- end_of_sql
+                    
+                    ...
+[0m09:48:35.166645 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.01 seconds
+[0m09:48:35.167486 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff96b64d70>]}
+[0m09:48:35.167743 [info ] [Thread-1 (]: 4 of 7 OK created sql view model `energy_marts_intermediate`.`int_residual_load`  [[32mOK[0m in 0.01s]
+[0m09:48:35.167956 [debug] [Thread-1 (]: Finished running node model.dbt_project.int_residual_load
+[0m09:48:35.168113 [debug] [Thread-1 (]: Began running node model.dbt_project.mart_daily_price_summary
+[0m09:48:35.168490 [info ] [Thread-1 (]: 5 of 7 START sql table model `energy_marts_marts`.`mart_daily_price_summary` ... [RUN]
+[0m09:48:35.168664 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.dbt_project.int_residual_load, now model.dbt_project.mart_daily_price_summary)
+[0m09:48:35.168803 [debug] [Thread-1 (]: Began compiling node model.dbt_project.mart_daily_price_summary
+[0m09:48:35.169952 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.mart_daily_price_summary"
+[0m09:48:35.170346 [debug] [Thread-1 (]: Began executing node model.dbt_project.mart_daily_price_summary
+[0m09:48:35.193315 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_daily_price_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_daily_price_summary"} */
+
+            
+
+    
+        create table `energy_marts_marts`.`mart_daily_price_summary__dbt_backup`
+        
+  
+        
+  engine = MergeTree()
+        
+      order by (tuple())
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            with prices as (
+    select * from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'price'
+    and filter_id = 4169
+)
+
+select
+    date,
+    round(avg(value), 2)            as avg_price_eur_mwh,
+    round(min(value), 2)            as min_price_eur_mwh,
+    round(max(value), 2)            as max_price_eur_mwh,
+    round(stddevPop(value), 2)      as price_volatility,
+    countIf(value < 0)              as negative_price_hours,
+    countIf(value > 100)            as high_price_hours,
+    count(*)                        as total_hours
+from prices
+group by date
+order by date desc
+          )
+        
+        ...
+[0m09:48:35.197699 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.204344 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_daily_price_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_daily_price_summary"} */
+
+    select name, type from system.columns where table = 'mart_daily_price_summary__dbt_backup'
+    
+      
+        and database = 'energy_marts_marts'
+      
+    
+    order by position
+  ...
+[0m09:48:35.206590 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.207946 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.mart_daily_price_summary"
+[0m09:48:35.208500 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_daily_price_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_daily_price_summary"} */
+
+  
+    
+    
+    
+        
+         
+
+
+        
+  
+
+  insert into `energy_marts_marts`.`mart_daily_price_summary__dbt_backup`
+        ("date", "avg_price_eur_mwh", "min_price_eur_mwh", "max_price_eur_mwh", "price_volatility", "negative_price_hours", "high_price_hours", "total_hours")with prices as (
+    select * from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'price'
+    and filter_id = 4169
+)
+
+select
+    date,
+    round(avg(value), 2)            as avg_price_eur_mwh,
+    round(min(value), 2)            as min_price_eur_mwh,
+    round(max(value), 2)            as max_price_eur_mwh,
+    round(stddevPop(value), 2)      as price_volatility,
+    countIf(value < 0)              as negative_price_hours,
+    countIf(value > 100)            as high_price_hours,
+    count(*)                        as total_hours
+from prices
+group by date
+order by date desc
+  ...
+[0m09:48:35.230293 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.02 seconds
+[0m09:48:35.232715 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_daily_price_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_daily_price_summary"} */
+EXCHANGE TABLES `energy_marts_marts`.`mart_daily_price_summary__dbt_backup` AND `energy_marts_marts`.`mart_daily_price_summary` 
+  
+  ...
+[0m09:48:35.233675 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.236200 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_daily_price_summary: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_daily_price_summary"} */
+drop table if exists `energy_marts_marts`.`mart_daily_price_summary__dbt_backup` 
+  ...
+[0m09:48:35.236947 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.237569 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff96afe3f0>]}
+[0m09:48:35.237875 [info ] [Thread-1 (]: 5 of 7 OK created sql table model `energy_marts_marts`.`mart_daily_price_summary`  [[32mOK[0m in 0.07s]
+[0m09:48:35.238129 [debug] [Thread-1 (]: Finished running node model.dbt_project.mart_daily_price_summary
+[0m09:48:35.238299 [debug] [Thread-1 (]: Began running node model.dbt_project.mart_capture_prices
+[0m09:48:35.238513 [info ] [Thread-1 (]: 6 of 7 START sql table model `energy_marts_marts`.`mart_capture_prices` ........ [RUN]
+[0m09:48:35.238687 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.dbt_project.mart_daily_price_summary, now model.dbt_project.mart_capture_prices)
+[0m09:48:35.238880 [debug] [Thread-1 (]: Began compiling node model.dbt_project.mart_capture_prices
+[0m09:48:35.240066 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.mart_capture_prices"
+[0m09:48:35.240536 [debug] [Thread-1 (]: Began executing node model.dbt_project.mart_capture_prices
+[0m09:48:35.242422 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_capture_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_capture_prices"} */
+
+            
+
+    
+        create table `energy_marts_marts`.`mart_capture_prices__dbt_backup`
+        
+  
+        
+  engine = MergeTree()
+        
+      order by (tuple())
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            with base as (
+    select
+        p.date                                      as date,
+        p.value                                     as price_eur_mwh,
+        r.onshore_wind_mwh                          as onshore_wind_mwh,
+        r.solar_mwh                                 as solar_mwh,
+        r.offshore_wind_mwh                         as offshore_wind_mwh,
+        r.total_renewable_mwh                       as total_renewable_mwh,
+        p.value * r.total_renewable_mwh             as weighted_price
+    from `energy_marts_staging`.`stg_energy_timeseries` p
+    left join `energy_marts_intermediate`.`int_renewable_generation` r
+        on p.timestamp = r.timestamp
+    where p.category = 'price'
+    and p.filter_id = 4169
+),
+
+aggregated as (
+    select
+        date,
+        sum(weighted_price)         as sum_weighted_price,
+        sum(total_renewable_mwh)    as sum_renewable_mwh,
+        avg(price_eur_mwh)          as avg_price,
+        sum(solar_mwh)              as sum_solar,
+        sum(onshore_wind_mwh)       as sum_onshore,
+        sum(offshore_wind_mwh)      as sum_offshore
+    from base
+    group by date
+)
+
+select
+    date,
+    round(sum_weighted_price / sum_renewable_mwh, 2)    as capture_price_eur_mwh,
+    round(avg_price, 2)                                  as avg_market_price_eur_mwh,
+    round(sum_renewable_mwh, 0)                         as total_renewable_mwh,
+    round(sum_solar, 0)                                 as solar_mwh,
+    round(sum_onshore, 0)                               as onshore_wind_mwh,
+    round(sum_offshore, 0)                              as offshore_wind_mwh
+from aggregated
+order by date desc
+          )
+        
+        ...
+[0m09:48:35.246284 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.247439 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_capture_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_capture_prices"} */
+
+    select name, type from system.columns where table = 'mart_capture_prices__dbt_backup'
+    
+      
+        and database = 'energy_marts_marts'
+      
+    
+    order by position
+  ...
+[0m09:48:35.248933 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.249695 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.mart_capture_prices"
+[0m09:48:35.250437 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_capture_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_capture_prices"} */
+
+  
+    
+    
+    
+        
+         
+
+
+        
+  
+
+  insert into `energy_marts_marts`.`mart_capture_prices__dbt_backup`
+        ("date", "capture_price_eur_mwh", "avg_market_price_eur_mwh", "total_renewable_mwh", "solar_mwh", "onshore_wind_mwh", "offshore_wind_mwh")with base as (
+    select
+        p.date                                      as date,
+        p.value                                     as price_eur_mwh,
+        r.onshore_wind_mwh                          as onshore_wind_mwh,
+        r.solar_mwh                                 as solar_mwh,
+        r.offshore_wind_mwh                         as offshore_wind_mwh,
+        r.total_renewable_mwh                       as total_renewable_mwh,
+        p.value * r.total_renewable_mwh             as weighted_price
+    from `energy_marts_staging`.`stg_energy_timeseries` p
+    left join `energy_marts_intermediate`.`int_renewable_generation` r
+        on p.timestamp = r.timestamp
+    where p.category = 'price'
+    and p.filter_id = 4169
+),
+
+aggregated as (
+    select
+        date,
+        sum(weighted_price)         as sum_weighted_price,
+        sum(total_renewable_mwh)    as sum_renewable_mwh,
+        avg(price_eur_mwh)          as avg_price,
+        sum(solar_mwh)              as sum_solar,
+        sum(onshore_wind_mwh)       as sum_onshore,
+        sum(offshore_wind_mwh)      as sum_offshore
+    from base
+    group by date
+)
+
+select
+    date,
+    round(sum_weighted_price / sum_renewable_mwh, 2)    as capture_price_eur_mwh,
+    round(avg_price, 2)                                  as avg_market_price_eur_mwh,
+    round(sum_renewable_mwh, 0)                         as total_renewable_mwh,
+    round(sum_solar, 0)                                 as solar_mwh,
+    round(sum_onshore, 0)                               as onshore_wind_mwh,
+    round(sum_offshore, 0)                              as offshore_wind_mwh
+from aggregated
+order by date desc
+  ...
+[0m09:48:35.339476 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.09 seconds
+[0m09:48:35.340674 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_capture_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_capture_prices"} */
+EXCHANGE TABLES `energy_marts_marts`.`mart_capture_prices__dbt_backup` AND `energy_marts_marts`.`mart_capture_prices` 
+  
+  ...
+[0m09:48:35.342108 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.344042 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_capture_prices: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_capture_prices"} */
+drop table if exists `energy_marts_marts`.`mart_capture_prices__dbt_backup` 
+  ...
+[0m09:48:35.344773 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.345489 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff96ba32c0>]}
+[0m09:48:35.345820 [info ] [Thread-1 (]: 6 of 7 OK created sql table model `energy_marts_marts`.`mart_capture_prices` ... [[32mOK[0m in 0.11s]
+[0m09:48:35.346132 [debug] [Thread-1 (]: Finished running node model.dbt_project.mart_capture_prices
+[0m09:48:35.346341 [debug] [Thread-1 (]: Began running node model.dbt_project.mart_flexibility_signals
+[0m09:48:35.346626 [info ] [Thread-1 (]: 7 of 7 START sql table model `energy_marts_marts`.`mart_flexibility_signals` ... [RUN]
+[0m09:48:35.346864 [debug] [Thread-1 (]: Re-using an available connection from the pool (formerly model.dbt_project.mart_capture_prices, now model.dbt_project.mart_flexibility_signals)
+[0m09:48:35.347033 [debug] [Thread-1 (]: Began compiling node model.dbt_project.mart_flexibility_signals
+[0m09:48:35.348573 [debug] [Thread-1 (]: Writing injected SQL for node "model.dbt_project.mart_flexibility_signals"
+[0m09:48:35.349079 [debug] [Thread-1 (]: Began executing node model.dbt_project.mart_flexibility_signals
+[0m09:48:35.350509 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_flexibility_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_flexibility_signals"} */
+
+            
+
+    
+        create table `energy_marts_marts`.`mart_flexibility_signals__dbt_backup`
+        
+  
+        
+  engine = MergeTree()
+        
+      order by (tuple())
+        
+        
+        
+        
+                    -- end_of_sql
+                    SETTINGS replicated_deduplication_window='0'
+
+                    
+            empty
+          as (
+            with prices as (
+    select
+        timestamp,
+        date,
+        hour_of_day,
+        value as price_eur_mwh
+    from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'price'
+    and filter_id = 4169
+),
+
+residual as (
+    select * from `energy_marts_intermediate`.`int_residual_load`
+),
+
+renewables as (
+    select * from `energy_marts_intermediate`.`int_renewable_generation`
+),
+
+joined as (
+    select
+        p.timestamp                 as timestamp,
+        p.date                      as date,
+        p.hour_of_day               as hour_of_day,
+        p.price_eur_mwh             as price_eur_mwh,
+        r.residual_load_mwh         as residual_load_mwh,
+        r.renewable_pct             as renewable_pct,
+        rn.total_renewable_mwh      as total_renewable_mwh,
+        multiIf(
+            p.price_eur_mwh < 50 and r.renewable_pct > 50, 'OPTIMAL',
+            p.price_eur_mwh < 80 and r.renewable_pct > 30, 'GOOD',
+            p.price_eur_mwh > 150, 'AVOID',
+            'NEUTRAL'
+        )                           as consumption_signal
+    from prices p
+    left join residual r on p.timestamp = r.timestamp
+    left join renewables rn on p.timestamp = rn.timestamp
+)
+
+select * from joined
+order by joined.timestamp desc
+          )
+        
+        ...
+[0m09:48:35.354526 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.355580 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_flexibility_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_flexibility_signals"} */
+
+    select name, type from system.columns where table = 'mart_flexibility_signals__dbt_backup'
+    
+      
+        and database = 'energy_marts_marts'
+      
+    
+    order by position
+  ...
+[0m09:48:35.356987 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.357675 [debug] [Thread-1 (]: Writing runtime sql for node "model.dbt_project.mart_flexibility_signals"
+[0m09:48:35.358342 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_flexibility_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_flexibility_signals"} */
+
+  
+    
+    
+    
+        
+         
+
+
+        
+  
+
+  insert into `energy_marts_marts`.`mart_flexibility_signals__dbt_backup`
+        ("timestamp", "date", "hour_of_day", "price_eur_mwh", "residual_load_mwh", "renewable_pct", "total_renewable_mwh", "consumption_signal")with prices as (
+    select
+        timestamp,
+        date,
+        hour_of_day,
+        value as price_eur_mwh
+    from `energy_marts_staging`.`stg_energy_timeseries`
+    where category = 'price'
+    and filter_id = 4169
+),
+
+residual as (
+    select * from `energy_marts_intermediate`.`int_residual_load`
+),
+
+renewables as (
+    select * from `energy_marts_intermediate`.`int_renewable_generation`
+),
+
+joined as (
+    select
+        p.timestamp                 as timestamp,
+        p.date                      as date,
+        p.hour_of_day               as hour_of_day,
+        p.price_eur_mwh             as price_eur_mwh,
+        r.residual_load_mwh         as residual_load_mwh,
+        r.renewable_pct             as renewable_pct,
+        rn.total_renewable_mwh      as total_renewable_mwh,
+        multiIf(
+            p.price_eur_mwh < 50 and r.renewable_pct > 50, 'OPTIMAL',
+            p.price_eur_mwh < 80 and r.renewable_pct > 30, 'GOOD',
+            p.price_eur_mwh > 150, 'AVOID',
+            'NEUTRAL'
+        )                           as consumption_signal
+    from prices p
+    left join residual r on p.timestamp = r.timestamp
+    left join renewables rn on p.timestamp = rn.timestamp
+)
+
+select * from joined
+order by joined.timestamp desc
+  ...
+[0m09:48:35.955965 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.60 seconds
+[0m09:48:35.958285 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_flexibility_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_flexibility_signals"} */
+EXCHANGE TABLES `energy_marts_marts`.`mart_flexibility_signals__dbt_backup` AND `energy_marts_marts`.`mart_flexibility_signals` 
+  
+  ...
+[0m09:48:35.960952 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.963822 [debug] [Thread-1 (]: dbt_clickhouse adapter: On model.dbt_project.mart_flexibility_signals: /* {"app": "dbt", "dbt_version": "1.11.11", "profile_name": "dbt_project", "target_name": "dev", "node_id": "model.dbt_project.mart_flexibility_signals"} */
+drop table if exists `energy_marts_marts`.`mart_flexibility_signals__dbt_backup` 
+  ...
+[0m09:48:35.965752 [debug] [Thread-1 (]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m09:48:35.966915 [debug] [Thread-1 (]: Sending event: {'category': 'dbt', 'action': 'run_model', 'label': '6b3b3f95-b9a0-445b-b3d6-778064d66f4c', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff96b0f9b0>]}
+[0m09:48:35.967565 [info ] [Thread-1 (]: 7 of 7 OK created sql table model `energy_marts_marts`.`mart_flexibility_signals`  [[32mOK[0m in 0.62s]
+[0m09:48:35.967930 [debug] [Thread-1 (]: Finished running node model.dbt_project.mart_flexibility_signals
+[0m09:48:35.970459 [debug] [MainThread]: Connection 'master' was properly closed.
+[0m09:48:35.970735 [debug] [MainThread]: Connection 'list_' was left open.
+[0m09:48:35.970958 [debug] [MainThread]: On list_: Close
+[0m09:48:35.971157 [debug] [MainThread]: Connection 'model.dbt_project.mart_flexibility_signals' was left open.
+[0m09:48:35.971314 [debug] [MainThread]: On model.dbt_project.mart_flexibility_signals: Close
+[0m09:48:35.971889 [info ] [MainThread]: 
+[0m09:48:35.972166 [info ] [MainThread]: Finished running 3 table models, 4 view models in 0 hours 0 minutes and 1.08 seconds (1.08s).
+[0m09:48:35.972809 [debug] [MainThread]: Command end result
+[0m09:48:35.996337 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:48:35.998677 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:48:36.004405 [debug] [MainThread]: Wrote artifact RunExecutionResult to /opt/airflow/dbt_project/target/run_results.json
+[0m09:48:36.004788 [info ] [MainThread]: 
+[0m09:48:36.005198 [info ] [MainThread]: [32mCompleted successfully[0m
+[0m09:48:36.005519 [info ] [MainThread]: 
+[0m09:48:36.005894 [info ] [MainThread]: Done. PASS=7 WARN=0 ERROR=0 SKIP=0 NO-OP=0 TOTAL=7
+[0m09:48:36.007457 [debug] [MainThread]: Resource report: {"command_name": "run", "command_success": true, "command_wall_clock_time": 1.8569176, "process_in_blocks": "1728", "process_kernel_time": 0.214361, "process_mem_max_rss": "133608", "process_out_blocks": "3882", "process_user_time": 1.634381}
+[0m09:48:36.008134 [debug] [MainThread]: Command `dbt run` succeeded at 09:48:36.008054 after 1.86 seconds
+[0m09:48:36.008599 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff97feea80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff97faf950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffff97008500>]}
+[0m09:48:36.008905 [debug] [MainThread]: Flushing usage events
+[0m09:48:38.161169 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m09:48:40.751608 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb834a330>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb7fa3140>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb8462900>]}
+
+
+============================== 09:48:40.756593 | eda06991-8dda-4926-8441-c1f22e462a2e ==============================
+[0m09:48:40.756593 [info ] [MainThread]: Running with dbt=1.11.11
+[0m09:48:40.756896 [debug] [MainThread]: running dbt with arguments {'fail_fast': 'False', 'introspect': 'True', 'indirect_selection': 'eager', 'printer_width': '80', 'invocation_command': 'dbt test --project-dir /opt/airflow/dbt_project --profiles-dir /opt/airflow/dbt_project', 'cache_selected_only': 'False', 'quiet': 'False', 'partial_parse': 'True', 'empty': 'None', 'use_experimental_parser': 'False', 'send_anonymous_usage_stats': 'True', 'write_json': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'profiles_dir': '/opt/airflow/dbt_project', 'log_format': 'default', 'log_cache_events': 'False', 'static_parser': 'True', 'use_colors': 'True', 'warn_error': 'None', 'debug': 'False', 'no_print': 'None', 'log_path': '/opt/airflow/dbt_project/logs', 'version_check': 'True', 'target_path': 'None'}
+[0m09:48:40.842999 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'project_id', 'label': 'eda06991-8dda-4926-8441-c1f22e462a2e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb848fc20>]}
+[0m09:48:40.871625 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'adapter_info', 'label': 'eda06991-8dda-4926-8441-c1f22e462a2e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb71ff170>]}
+[0m09:48:40.872065 [info ] [MainThread]: Registered adapter: clickhouse=1.10.1
+[0m09:48:40.900478 [debug] [MainThread]: checksum: 30a8cc8fdcbf66701b0944d4ccce3fa46dd04b61e5df68b9f16d57b2e0e3f0be, vars: {}, profile: , target: , version: 1.11.11
+[0m09:48:40.957761 [debug] [MainThread]: Partial parsing enabled: 0 files deleted, 0 files added, 0 files changed.
+[0m09:48:40.958050 [debug] [MainThread]: Nothing changed, skipping partial parsing.
+[0m09:48:40.958255 [debug] [MainThread]: Partial parsing enabled, no changes found, skipping parsing
+[0m09:48:40.972552 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'load_project', 'label': 'eda06991-8dda-4926-8441-c1f22e462a2e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb6d7b950>]}
+[0m09:48:41.010925 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:48:41.012540 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:48:41.027594 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'resource_counts', 'label': 'eda06991-8dda-4926-8441-c1f22e462a2e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb67bc290>]}
+[0m09:48:41.027911 [info ] [MainThread]: Found 7 models, 1 source, 530 macros
+[0m09:48:41.028117 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'runnable_timing', 'label': 'eda06991-8dda-4926-8441-c1f22e462a2e', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb67a3fe0>]}
+[0m09:48:41.028895 [warn ] [MainThread]: Nothing to do. Try checking your model configs and model specification args
+[0m09:48:41.029764 [debug] [MainThread]: Command end result
+[0m09:48:41.046600 [debug] [MainThread]: Wrote artifact WritableManifest to /opt/airflow/dbt_project/target/manifest.json
+[0m09:48:41.047483 [debug] [MainThread]: Wrote artifact SemanticManifest to /opt/airflow/dbt_project/target/semantic_manifest.json
+[0m09:48:41.049086 [debug] [MainThread]: Wrote artifact RunExecutionResult to /opt/airflow/dbt_project/target/run_results.json
+[0m09:48:41.049702 [debug] [MainThread]: Resource report: {"command_name": "test", "command_success": true, "command_wall_clock_time": 0.32664213, "process_in_blocks": "432", "process_kernel_time": 0.136866, "process_mem_max_rss": "118648", "process_out_blocks": "2535", "process_user_time": 1.031458}
+[0m09:48:41.049974 [debug] [MainThread]: Command `dbt test` succeeded at 09:48:41.049930 after 0.33 seconds
+[0m09:48:41.050207 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb81a8aa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb72ed1f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb848e720>]}
+[0m09:48:41.050444 [debug] [MainThread]: Flushing usage events
+[0m09:48:42.017764 [debug] [MainThread]: An error was encountered while trying to flush usage events

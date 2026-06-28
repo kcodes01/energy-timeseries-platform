@@ -4,7 +4,13 @@
     
     
         
-        insert into `energy_marts_marts`.`mart_daily_price_summary__dbt_backup`
+         
+
+
+        
+  
+
+  insert into `energy_marts_marts`.`mart_daily_price_summary__dbt_backup`
         ("date", "avg_price_eur_mwh", "min_price_eur_mwh", "max_price_eur_mwh", "price_volatility", "negative_price_hours", "high_price_hours", "total_hours")with prices as (
     select * from `energy_marts_staging`.`stg_energy_timeseries`
     where category = 'price'
@@ -23,5 +29,4 @@ select
 from prices
 group by date
 order by date desc
-  
   

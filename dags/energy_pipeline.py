@@ -9,9 +9,12 @@ import requests
 SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
 
 def send_slack(message: str, color: str = "good"):
-    requests.post(SLACK_WEBHOOK_URL, json={
-        "attachments": [{"color": color, "text": message}]
-    })
+    try:
+        requests.post(SLACK_WEBHOOK_URL, json={
+            "attachments": [{"color": color, "text": message}]
+        }, timeout=5)
+    except Exception as e:
+        print(f"Slack notification failed: {e}")
 
 def on_failure_callback(context):
     task_id = context['task_instance'].task_id
@@ -42,6 +45,7 @@ PIPELINE_ENV = {
     'DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD': '',
     'DESTINATION__CLICKHOUSE__CREDENTIALS__SECURE': '0',
     'MINIO_ENDPOINT': 'http://minio:9000',
+    'DBT_CLICKHOUSE_HOST': 'clickhouse',
 }
 
 def run_smard_pipeline():

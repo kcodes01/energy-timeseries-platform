@@ -63,6 +63,7 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./pipeline:/opt/airflow/pipeline
+      - ./dbt_project:/opt/airflow/dbt_project
     command: standalone
     depends_on:
       postgres:
@@ -73,7 +74,6 @@ services:
     container_name: metabase
     ports:
       - "3000:3000"
-    environment:
     depends_on:
       postgres:
         condition: service_healthy
