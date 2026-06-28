@@ -6,7 +6,7 @@ dbt_project:
       schema: energy_marts
       host: "{{ env_var('DBT_CLICKHOUSE_HOST', 'localhost') }}"
       port: 8123
-      user: default
-      password: ""
+      user: clickhouse
+      password: clickhouse
       secure: false
       verify: false

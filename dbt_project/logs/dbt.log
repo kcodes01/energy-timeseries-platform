@@ -5752,3 +5752,61 @@ drop table if exists `energy_marts_marts`.`mart_flexibility_signals__dbt_backup`
 [0m09:48:41.050207 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb81a8aa0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb72ed1f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0xffffb848e720>]}
 [0m09:48:41.050444 [debug] [MainThread]: Flushing usage events
 [0m09:48:42.017764 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m22:46:25.218621 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c893850>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c8a6790>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10c8a6ed0>]}
+
+
+============================== 22:46:25.220537 | 61265b49-0b55-4e9d-8f6a-5f183d56baef ==============================
+[0m22:46:25.220537 [info ] [MainThread]: Running with dbt=1.7.19
+[0m22:46:25.220764 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': '/Users/kaleab/Documents/energy-timeseries-platform/dbt_project', 'version_check': 'True', 'warn_error': 'None', 'log_path': '/Users/kaleab/Documents/energy-timeseries-platform/dbt_project/logs', 'fail_fast': 'False', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'introspect': 'True', 'invocation_command': 'dbt debug', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'send_anonymous_usage_stats': 'True'}
+[0m22:46:25.220989 [info ] [MainThread]: dbt version: 1.7.19
+[0m22:46:25.221118 [info ] [MainThread]: python version: 3.11.9
+[0m22:46:25.221236 [info ] [MainThread]: python path: /Users/kaleab/Documents/energy-timeseries-platform/venv/bin/python
+[0m22:46:25.221348 [info ] [MainThread]: os info: macOS-26.1-arm64-arm-64bit
+[0m22:46:25.250251 [info ] [MainThread]: Using profiles dir at /Users/kaleab/Documents/energy-timeseries-platform/dbt_project
+[0m22:46:25.250474 [info ] [MainThread]: Using profiles.yml file at /Users/kaleab/Documents/energy-timeseries-platform/dbt_project/profiles.yml
+[0m22:46:25.250597 [info ] [MainThread]: Using dbt_project.yml file at /Users/kaleab/Documents/energy-timeseries-platform/dbt_project/dbt_project.yml
+[0m22:46:25.250944 [info ] [MainThread]: adapter type: clickhouse
+[0m22:46:25.251059 [info ] [MainThread]: adapter version: 1.7.0
+[0m22:46:25.286990 [info ] [MainThread]: Configuration:
+[0m22:46:25.287182 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m22:46:25.287304 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m22:46:25.287416 [info ] [MainThread]: Required dependencies:
+[0m22:46:25.287556 [debug] [MainThread]: Executing "git --help"
+[0m22:46:25.304951 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m22:46:25.305329 [debug] [MainThread]: STDERR: "b''"
+[0m22:46:25.305493 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m22:46:25.305625 [info ] [MainThread]: Connection:
+[0m22:46:25.305783 [info ] [MainThread]:   driver: None
+[0m22:46:25.305890 [info ] [MainThread]:   host: localhost
+[0m22:46:25.305991 [info ] [MainThread]:   port: 8123
+[0m22:46:25.306090 [info ] [MainThread]:   user: clickhouse
+[0m22:46:25.306189 [info ] [MainThread]:   schema: energy_marts
+[0m22:46:25.306287 [info ] [MainThread]:   retries: 1
+[0m22:46:25.306385 [info ] [MainThread]:   database_engine: None
+[0m22:46:25.306490 [info ] [MainThread]:   cluster_mode: False
+[0m22:46:25.306589 [info ] [MainThread]:   secure: False
+[0m22:46:25.306688 [info ] [MainThread]:   verify: False
+[0m22:46:25.306784 [info ] [MainThread]:   connect_timeout: 10
+[0m22:46:25.306880 [info ] [MainThread]:   send_receive_timeout: 300
+[0m22:46:25.306976 [info ] [MainThread]:   sync_request_timeout: 5
+[0m22:46:25.307076 [info ] [MainThread]:   compress_block_size: 1048576
+[0m22:46:25.307172 [info ] [MainThread]:   compression: 
+[0m22:46:25.307269 [info ] [MainThread]:   check_exchange: True
+[0m22:46:25.307364 [info ] [MainThread]:   custom_settings: None
+[0m22:46:25.307459 [info ] [MainThread]:   use_lw_deletes: False
+[0m22:46:25.307553 [info ] [MainThread]:   allow_automatic_deduplication: False
+[0m22:46:25.307740 [info ] [MainThread]: Registered adapter: clickhouse=1.7.0
+[0m22:46:25.311313 [debug] [MainThread]: Acquiring new clickhouse connection 'debug'
+[0m22:46:25.311601 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m22:46:25.400549 [debug] [MainThread]: dbt_clickhouse adapter: On debug: select 1 as id...
+[0m22:46:25.402600 [debug] [MainThread]: dbt_clickhouse adapter: SQL status: OK in 0.00 seconds
+[0m22:46:25.403101 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m22:46:25.403255 [info ] [MainThread]: [32mAll checks passed![0m
+[0m22:46:25.404720 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": true, "command_wall_clock_time": 0.21830054, "process_user_time": 0.736227, "process_kernel_time": 0.113424, "process_mem_max_rss": "124026880", "process_in_blocks": "0", "process_out_blocks": "0"}
+[0m22:46:25.404918 [debug] [MainThread]: Command `dbt debug` succeeded at 22:46:25.404867 after 0.22 seconds
+[0m22:46:25.405064 [debug] [MainThread]: Connection 'debug' was left open.
+[0m22:46:25.405182 [debug] [MainThread]: On debug: Close
+[0m22:46:25.405353 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10ca40c10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10cab03d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x10cc0bf50>]}
+[0m22:46:25.405517 [debug] [MainThread]: Flushing usage events

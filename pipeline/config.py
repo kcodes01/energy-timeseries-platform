@@ -76,7 +76,7 @@ FILTERS = [
 MINIO_ENDPOINT = os.environ.get("MINIO_ENDPOINT", "http://localhost:9000")
 MINIO_ACCESS_KEY = "minioadmin"
 MINIO_SECRET_KEY = "minioadmin"
-MINIO_BUCKET = "trawa-energy-lake"
+MINIO_BUCKET = "smard-energy-lake"
 
 # ClickHouse configuration — no SSL for local
 CLICKHOUSE_HOST = "localhost"

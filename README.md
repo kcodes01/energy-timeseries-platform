@@ -1,61 +1,95 @@
 # ⚡ Energy Timeseries Platform
 
-> End-to-end time-series data platform for energy market analytics — from raw SMARD data ingestion to business-ready insights on renewable generation and price volatility.
+> End-to-end time-series data platform for energy market analytics — from raw SMARD API ingestion to business-ready insights on renewable generation, price volatility and flexibility signals.
 
 ![CI](https://github.com/kcodes01/energy-timeseries-platform/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![dlt](https://img.shields.io/badge/dlt-1.28-orange)
+![dbt](https://img.shields.io/badge/dbt-1.7-red)
+![ClickHouse](https://img.shields.io/badge/ClickHouse-26.5-yellow)
+![Airflow](https://img.shields.io/badge/Airflow-2.9-green)
 
 ---
 
-## 📊 Dashboard
+## 📊 Dashboard — Energy Market Analytics Germany
 
 ![Energy Market Analytics Dashboard](docs/screenshots/dashboard.png)
 
 ---
 
 ## 🏗️ Architecture
-SMARD API (German Energy Market Data)
 
-↓
-
-Python + polars
-
-(normalization + quality checks)
-
-↓
-
-dlt
-
-↓                    ↓
-
-MinIO                ClickHouse
-
-(Data Lake)             (Warehouse)
-
-Parquet files           Raw tables
-
-↓
-
-dbt
-
-(staging → intermediate → marts)
-
-↓
-
-Metabase
-
-(dashboards)
-
-↓
-
-Airflow
-
-(daily orchestration @ 6am)
-
-↓
-
-Slack
-
-(alerts & monitoring)
+```
+┌─────────────────────────────────────────────────────────────┐
+│                      DATA SOURCES                           │
+│  SMARD API (Bundesnetzagentur — German Electricity Market)  │
+│  • 10 filters: prices, generation, consumption, forecasts   │
+│  • Hourly resolution • Jan 2025 → present • 129,350 rows   │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   INGESTION LAYER                           │
+│  Python + polars                                            │
+│  • Fetch timestamps (Endpoint 1)                           │
+│  • Filter chunks >= Jan 2025 (polars DataFrame ops)        │
+│  • Fetch data chunks (Endpoint 2)                          │
+│  • Normalize [timestamp, value] → clean DataFrame          │
+│  • Quality checks: nulls, range, duplicates                │
+└──────────────┬──────────────────────────┬───────────────────┘
+               │ dlt                      │ dlt
+               ▼                          ▼
+┌──────────────────────┐    ┌─────────────────────────────────┐
+│     DATA LAKE        │    │        DATA WAREHOUSE           │
+│  MinIO (S3-compat.)  │    │  ClickHouse                     │
+│  smard-energy-lake/  │    │  • Columnar time-series DB      │
+│  raw/                │    │  • 129,350 rows                 │
+│  ├── price/          │    │  • Sub-100ms queries            │
+│  ├── generation/     │    │  • Schema auto-managed by dlt   │
+│  ├── consumption/    │    │  • Incremental state tracking   │
+│  └── forecast/       │    │                                 │
+│  Parquet format      │    │                                 │
+└──────────────────────┘    └────────────────┬────────────────┘
+                                             │
+                                             ▼
+┌─────────────────────────────────────────────────────────────┐
+│                TRANSFORMATION LAYER (dbt)                   │
+│                                                             │
+│  staging/                                                   │
+│  └── stg_energy_timeseries    ← types, time columns        │
+│                                                             │
+│  intermediate/                                              │
+│  ├── int_hourly_prices         ← hourly price aggregations │
+│  ├── int_renewable_generation  ← wind + solar breakdown    │
+│  └── int_residual_load         ← demand minus renewables   │
+│                                                             │
+│  marts/                                                     │
+│  ├── mart_daily_price_summary  ← daily stats + neg. hours  │
+│  ├── mart_capture_prices       ← weighted renewable price  │
+│  └── mart_flexibility_signals  ← OPTIMAL/GOOD/NEUTRAL/AVOID│
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  PRESENTATION LAYER                         │
+│  Metabase                                                   │
+│  • Daily Electricity Price — Germany                        │
+│  • Renewable Capture Price vs Market Price                  │
+│  • Consumption Flexibility Signals                          │
+└─────────────────────────────────────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│              ORCHESTRATION & MONITORING                     │
+│                                                             │
+│  Airflow (daily @ 6am UTC)       Slack Alerts              │
+│  ingest_smard_data               • 🚀 Pipeline started     │
+│       ↓                          • ✅ Pipeline completed    │
+│  dbt_transform                   • 🔴 Task failed          │
+│       ↓                          • ⚠️  Quality warning      │
+│  dbt_test                                                   │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -63,143 +97,110 @@ Slack
 
 | Component | Local Demo | Production |
 |---|---|---|
-| Data Lake | MinIO (S3-compatible) | AWS S3 |
-| Warehouse | ClickHouse (Docker) | ClickHouse (Cloud) |
-| Ingestion | dlt | dlt |
-| Processing | polars | polars |
-| Transform | dbt | dbt |
-| Orchestration | Airflow (Docker) | Airflow |
-| BI | Metabase (Docker) | Metabase |
-| Monitoring | Slack webhooks | Slack webhooks |
+| **Processing** | Python + polars | Python + polars |
+| **Ingestion** | dlt 1.28 | dlt 1.28 |
+| **Data Lake** | MinIO (S3-compatible) | AWS S3 |
+| **Warehouse** | ClickHouse (Docker) | ClickHouse (Cloud) |
+| **Transformation** | dbt-clickhouse | dbt-clickhouse |
+| **Orchestration** | Airflow (Docker) | Airflow (Managed) |
+| **BI** | Metabase (Docker) | Metabase (Cloud) |
+| **Monitoring** | Slack webhooks | Slack webhooks |
+| **CI/CD** | GitHub Actions | GitHub Actions |
 
-> Switching from local to production is a credentials swap only — no code changes needed.
-
----
-
-## 📡 Data Sources
-
-10 SMARD filters — Jan 2025 to present — hourly resolution — **129,350 rows**:
-
-| Category | Filter | ID |
-|---|---|---|
-| Price | Market price: Germany/Luxembourg | 4169 |
-| Price | Market price: Austria | 4170 |
-| Generation | Onshore wind | 4067 |
-| Generation | Solar/Photovoltaics | 4068 |
-| Generation | Offshore wind | 1225 |
-| Generation | Natural gas | 4071 |
-| Consumption | Total grid load | 410 |
-| Consumption | Residual load | 4359 |
-| Forecast | Wind + solar combined | 5097 |
-| Forecast | Total production | 122 |
+> Switching from local to production requires only a credentials swap — no pipeline code changes needed.
 
 ---
 
-## 🔄 dbt Models
-staging/
+## 📡 Data Sources — SMARD API
 
-└── stg_energy_timeseries          ← clean types, derived time columns
-intermediate/
-
-├── int_hourly_prices               ← hourly price aggregations
-
-├── int_renewable_generation        ← wind + solar breakdown
-
-└── int_residual_load               ← demand minus renewables
-marts/
-
-├── mart_daily_price_summary        ← daily stats + negative price hours
-
-├── mart_capture_prices             ← weighted avg price during renewable production
-
-└── mart_flexibility_signals        ← OPTIMAL/GOOD/NEUTRAL/AVOID signals
+| Category | Filter Name | ID | Unit |
+|---|---|---|---|
+| 💰 Price | Market price: Germany/Luxembourg | 4169 | EUR/MWh |
+| 💰 Price | Market price: Austria | 4170 | EUR/MWh |
+| 🌬️ Generation | Onshore wind | 4067 | MWh |
+| ☀️ Generation | Solar/Photovoltaics | 4068 | MWh |
+| 🌊 Generation | Offshore wind | 1225 | MWh |
+| 🔥 Generation | Natural gas | 4071 | MWh |
+| ⚡ Consumption | Total grid load | 410 | MWh |
+| 📉 Consumption | Residual load | 4359 | MWh |
+| 🔮 Forecast | Wind + solar combined | 5097 | MWh |
+| 🔮 Forecast | Total production | 122 | MWh |
 
 ---
 
-## 🚀 CI/CD
+## 🖼️ Screenshots
 
+### MinIO Data Lake
+![MinIO Object Store](docs/screenshots/minio.png)
+
+### Airflow Orchestration
+![Airflow DAG](docs/screenshots/airflow.png)
+
+### GitHub Actions CI/CD
 ![GitHub Actions](docs/screenshots/github-actions.png)
 
 ---
 
-## ⏱️ Airflow Orchestration
+## 🛠️ Full Stack
 
-![Airflow DAG](docs/screenshots/airflow.png)
-
-Daily pipeline runs at **6am UTC**:
-1. `ingest_smard_data` — fetch SMARD → polars → MinIO + ClickHouse
-2. `dbt_transform` — run all 7 dbt models
-3. `dbt_test` — validate data quality
-
----
-
-## 🔔 Slack Monitoring
-
-Real-time alerts for:
-- 🚀 Pipeline started
-- ✅ Pipeline completed (with row count + duration)
-- 🔴 Pipeline failed (with error details)
-- ⚠️ Data quality warnings
-
----
-
-## 🛠️ Stack
-
-| Layer | Tool | Version |
-|---|---|---|
-| Ingestion | dlt | 1.28 |
-| Processing | polars | 0.20 |
-| Data Lake | MinIO | Latest |
-| Warehouse | ClickHouse | 26.5 |
-| Transformation | dbt-clickhouse | 1.7 |
-| Orchestration | Apache Airflow | 2.9 |
-| BI | Metabase | Latest |
-| Infrastructure | Docker Compose | - |
-| CI/CD | GitHub Actions | - |
-| Language | Python | 3.11 |
+| Layer | Tool | Version | Purpose |
+|---|---|---|---|
+| **Language** | Python | 3.11 | Pipeline + scripting |
+| **Processing** | polars | 0.20 | Fast DataFrame ops |
+| **Ingestion** | dlt | 1.28 | Schema inference, incremental loading |
+| **Data Lake** | MinIO | Latest | S3-compatible Parquet storage |
+| **Warehouse** | ClickHouse | 26.5 | Columnar time-series analytics |
+| **Transformation** | dbt-clickhouse | 1.7 | SQL modeling, quality tests |
+| **Orchestration** | Apache Airflow | 2.9 | DAG scheduling, retries |
+| **BI** | Metabase | Latest | Self-serve dashboards |
+| **Monitoring** | Slack webhooks | - | Real-time alerts |
+| **Infrastructure** | Docker Compose | - | Local orchestration |
+| **CI/CD** | GitHub Actions | - | Lint, test, validate |
 
 ---
 
 ## ⚡ Quick Start
 
 ```bash
-# Clone
+# 1. Clone
 git clone https://github.com/kcodes01/energy-timeseries-platform.git
 cd energy-timeseries-platform
 
-# Start all services
+# 2. Start all services
 docker-compose up -d
 
-# Create virtual environment
+# 3. Virtual environment
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Create MinIO bucket
+# 4. Create MinIO bucket
 python3 -c "
 from minio import Minio
 client = Minio('localhost:9000', access_key='minioadmin', secret_key='minioadmin', secure=False)
-client.make_bucket('trawa-energy-lake')
+client.make_bucket('smard-energy-lake')
 print('✅ Bucket created')
 "
 
-# Set ClickHouse credentials
-export DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME=default
-export DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD=""
+# 5. Set credentials
+export DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME=clickhouse
+export DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD=clickhouse
 export DESTINATION__CLICKHOUSE__CREDENTIALS__HOST=localhost
 export DESTINATION__CLICKHOUSE__CREDENTIALS__PORT=9002
 export DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE=energy
 export DESTINATION__CLICKHOUSE__CREDENTIALS__SECURE=0
 export DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT=8123
 
-# Run pipeline
+# 6. Run pipeline
 cd pipeline && python smard_pipeline.py
 
-# Run dbt
+# 7. Run dbt
 cd ../dbt_project && dbt run && dbt test
 
-# Open Metabase
-open http://localhost:3000
+# 8. Open services
+open http://localhost:3000   # Metabase
+open http://localhost:9001   # MinIO
+open http://localhost:8080   # Airflow
 ```
 
 ---
@@ -208,10 +209,10 @@ open http://localhost:3000
 
 | Service | URL | Credentials |
 |---|---|---|
-| MinIO Console | http://localhost:9001 | minioadmin / minioadmin |
-| Airflow | http://localhost:8080 | admin / admin123 |
-| Metabase | http://localhost:3000 | set on first visit |
-| ClickHouse HTTP | http://localhost:8123 | default / (empty) |
+| **Metabase** | http://localhost:3000 | set on first visit |
+| **MinIO Console** | http://localhost:9001 | minioadmin / minioadmin |
+| **Airflow** | http://localhost:8080 | admin / admin123 |
+| **ClickHouse** | http://localhost:8123 | clickhouse / clickhouse |
 
 ---
 
