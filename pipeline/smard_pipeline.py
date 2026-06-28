@@ -134,14 +134,14 @@ def quality_check(df: pl.DataFrame, filter_config: dict) -> pl.DataFrame:
     if len(invalid) > 0:
         print(f"⚠️  WARNING: {len(invalid)} rows outside valid range")
     else:
-        print(f"✅ Range check passed")
+        print("✅ Range check passed")
 
     duplicates = total_rows - df["timestamp"].n_unique()
     if duplicates > 0:
         print(f"⚠️  WARNING: {duplicates} duplicate timestamps")
         df = df.unique(subset=["timestamp", "filter_id"])
     else:
-        print(f"✅ Duplicate check passed")
+        print("✅ Duplicate check passed")
 
     return df
 
