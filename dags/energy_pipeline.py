@@ -1,19 +1,48 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 import subprocess
 import sys
+import requests
+
+SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
+
+def send_slack(message: str, color: str = "good"):
+    requests.post(SLACK_WEBHOOK_URL, json={
+        "attachments": [{
+            "color": color,
+            "text": message
+        }]
+    })
+
+def on_failure_callback(context):
+    task_id = context['task_instance'].task_id
+    dag_id = context['dag'].dag_id
+    error = str(context.get('exception', 'Unknown error'))
+    send_slack(
+        f"🔴 *Airflow Task Failed*\n"
+        f"• DAG: {dag_id}\n"
+        f"• Task: {task_id}\n"
+        f"• Error: {error[:200]}",
+        color="danger"
+    )
+
+def on_success_callback(context):
+    task_id = context['task_instance'].task_id
+    send_slack(
+        f"✅ *Task Completed*: {task_id}",
+        color="#36a64f"
+    )
 
 default_args = {
     'owner': 'kaleab',
     'retries': 2,
     'retry_delay': timedelta(minutes=5),
     'email_on_failure': False,
+    'on_failure_callback': on_failure_callback,
 }
 
 def run_smard_pipeline():
-    """Run dlt pipeline — fetch SMARD data → MinIO + ClickHouse."""
     result = subprocess.run(
         [sys.executable, "/opt/airflow/pipeline/smard_pipeline.py"],
         capture_output=True,
@@ -25,9 +54,8 @@ def run_smard_pipeline():
         raise Exception(f"Pipeline failed: {result.stderr}")
 
 def run_dbt_run():
-    """Run dbt models."""
     result = subprocess.run(
-        ["/opt/airflow/venv/bin/dbt", "run",
+        ["dbt", "run",
          "--project-dir", "/opt/airflow/dbt_project",
          "--profiles-dir", "/opt/airflow/dbt_project"],
         capture_output=True,
@@ -38,9 +66,8 @@ def run_dbt_run():
         raise Exception(f"dbt run failed: {result.stderr}")
 
 def run_dbt_test():
-    """Run dbt tests."""
     result = subprocess.run(
-        ["/opt/airflow/venv/bin/dbt", "test",
+        ["dbt", "test",
          "--project-dir", "/opt/airflow/dbt_project",
          "--profiles-dir", "/opt/airflow/dbt_project"],
         capture_output=True,
@@ -54,7 +81,7 @@ with DAG(
     dag_id="energy_timeseries_pipeline",
     description="Daily energy market data pipeline: SMARD → MinIO → ClickHouse → dbt",
     default_args=default_args,
-    schedule_interval="0 6 * * *",  # runs daily at 6am
+    schedule_interval="0 6 * * *",
     start_date=datetime(2026, 1, 1),
     catchup=False,
     tags=["energy", "smard", "dlt", "dbt"],
@@ -63,29 +90,19 @@ with DAG(
     ingest = PythonOperator(
         task_id="ingest_smard_data",
         python_callable=run_smard_pipeline,
-        doc_md="""
-        Fetches energy market data from SMARD API for 10 filters.
-        Normalizes with polars, runs quality checks,
-        saves Parquet to MinIO, loads to ClickHouse via dlt.
-        """
+        on_success_callback=on_success_callback,
     )
 
     transform = PythonOperator(
         task_id="dbt_transform",
         python_callable=run_dbt_run,
-        doc_md="""
-        Runs dbt models:
-        - staging: stg_energy_timeseries
-        - intermediate: int_hourly_prices, int_renewable_generation, int_residual_load
-        - marts: mart_daily_price_summary, mart_capture_prices, mart_flexibility_signals
-        """
+        on_success_callback=on_success_callback,
     )
 
     test = PythonOperator(
         task_id="dbt_test",
         python_callable=run_dbt_test,
-        doc_md="Runs dbt data quality tests on all models."
+        on_success_callback=on_success_callback,
     )
 
-    # Pipeline order
     ingest >> transform >> test

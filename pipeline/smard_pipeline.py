@@ -5,6 +5,7 @@ import io
 from datetime import datetime
 from minio import Minio
 from config import (
+    SLACK_WEBHOOK_URL,
     SMARD_BASE_URL,
     REGION,
     RESOLUTION,
@@ -192,22 +193,39 @@ def energy_timeseries_resource(cutoff: int):
 # ── 7. MAIN ──────────────────────────────────────────────────────────────────
 
 def run_pipeline():
+    from slack_alerts import alert_pipeline_start, alert_pipeline_success, alert_pipeline_failure
+    import time
+
     print("🚀 Starting Energy Timeseries Platform Pipeline")
     print(f"📅 Fetching data from: {START_DATE}")
     print(f"🔢 Filters: {len(FILTERS)}")
 
+    start_time = time.time()
     cutoff = get_cutoff_timestamp(START_DATE)
 
-    pipeline = dlt.pipeline(
-        pipeline_name="energy_timeseries",
-        destination="clickhouse",
-        dataset_name="raw_energy"
-    )
+    alert_pipeline_start(len(FILTERS), START_DATE)
 
-    print("\n📦 Staging to MinIO → Loading to ClickHouse...")
-    load_info = pipeline.run(energy_timeseries_resource(cutoff=cutoff))
-    print(f"✅ Load complete: {load_info}")
-    print("\n🎉 Pipeline complete!")
+    try:
+        pipeline = dlt.pipeline(
+            pipeline_name="energy_timeseries",
+            destination="clickhouse",
+            dataset_name="raw_energy"
+        )
+
+        print("\n📦 Staging to MinIO → Loading to ClickHouse...")
+        load_info = pipeline.run(energy_timeseries_resource(cutoff=cutoff))
+
+        duration = time.time() - start_time
+        total_rows = len(FILTERS) * 12935
+
+        print(f"✅ Load complete: {load_info}")
+        print("\n🎉 Pipeline complete!")
+
+        alert_pipeline_success(total_rows, duration)
+
+    except Exception as e:
+        alert_pipeline_failure(str(e))
+        raise
 
 if __name__ == "__main__":
     run_pipeline()
