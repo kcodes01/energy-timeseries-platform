@@ -64,6 +64,7 @@ services:
       - ./dags:/opt/airflow/dags
       - ./pipeline:/opt/airflow/pipeline
       - ./dbt_project:/opt/airflow/dbt_project
+      - ./great_expectations:/opt/airflow/great_expectations
     command: standalone
     depends_on:
       postgres:

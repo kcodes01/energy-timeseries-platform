@@ -229,3 +229,20 @@ def run_pipeline():
 
 if __name__ == "__main__":
     run_pipeline()
+
+
+def run_quality_validation():
+    """Run Great Expectations validation after pipeline load."""
+    import subprocess
+    import sys
+    result = subprocess.run(
+        [sys.executable, "../great_expectations/energy_expectations.py"],
+        capture_output=True,
+        text=True,
+        cwd="/Users/kaleab/Documents/energy-timeseries-platform/pipeline"
+    )
+    print(result.stdout)
+    if result.returncode != 0:
+        print(f"⚠️ Quality validation failed: {result.stderr}")
+        return False
+    return True

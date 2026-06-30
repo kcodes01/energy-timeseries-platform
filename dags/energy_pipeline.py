@@ -114,4 +114,20 @@ with DAG(
         on_success_callback=on_success_callback,
     )
 
-    ingest >> transform >> test
+    def run_ge_validation():
+        result = subprocess.run(
+            [sys.executable, "/opt/airflow/great_expectations/run_validation.py"],
+            capture_output=True,
+            text=True
+        )
+        print(result.stdout)
+        if result.returncode != 0:
+            raise Exception(f"GE validation failed: {result.stderr}")
+
+    validate = PythonOperator(
+        task_id="quality_validation",
+        python_callable=run_ge_validation,
+        on_success_callback=on_success_callback,
+    )
+
+    ingest >> transform >> test >> validate
