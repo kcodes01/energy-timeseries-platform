@@ -163,13 +163,10 @@
 ### 5️⃣ Data Quality — Great Expectations validation report
 ![Great Expectations](docs/screenshots/ge-validation.png)
 
-### 6️⃣ Orchestration — Airflow DAG, all 4 tasks green
-![Airflow DAG](docs/screenshots/airflow-4tasks.png)
-
-### 7️⃣ Monitoring — Slack alerts with real incident history
+### 6️⃣ Monitoring — Slack alerts with real incident history
 ![Slack Alerts](docs/screenshots/slack-alerts.png)
 
-### 8️⃣ CI/CD — GitHub Actions on every push
+### 7️⃣ CI/CD — GitHub Actions on every push
 ![GitHub Actions](docs/screenshots/github-actions.png)
 
 ---
