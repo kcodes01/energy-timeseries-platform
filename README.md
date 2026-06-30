@@ -252,6 +252,10 @@ export DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT=8123
 # 6. Run pipeline
 cd pipeline && python smard_pipeline.py
 
+# Or backfill a specific date range / filter
+python smard_pipeline.py --start-date 2025-03-01 --end-date 2025-03-31
+python smard_pipeline.py --filter-id 4169 --start-date 2025-01-01
+
 # 7. Run dbt
 cd ../dbt_project && dbt run && dbt test
 

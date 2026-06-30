@@ -34,9 +34,14 @@ def fetch_timestamps(filter_id: int) -> list[int]:
     response.raise_for_status()
     return response.json()["timestamps"]
 
-def filter_timestamps(timestamps: list[int], cutoff: int) -> list[int]:
+def filter_timestamps(timestamps: list[int], cutoff: int, end_cutoff: int = None) -> list[int]:
     df = pl.DataFrame({"timestamp": timestamps})
-    filtered = df.filter(pl.col("timestamp") >= cutoff)
+    if end_cutoff:
+        filtered = df.filter(
+            (pl.col("timestamp") >= cutoff) & (pl.col("timestamp") <= end_cutoff)
+        )
+    else:
+        filtered = df.filter(pl.col("timestamp") >= cutoff)
     return filtered["timestamp"].to_list()
 
 def fetch_chunk(filter_id: int, timestamp: int) -> list:
@@ -148,7 +153,7 @@ def quality_check(df: pl.DataFrame, filter_config: dict) -> pl.DataFrame:
 
 # ── 5. FETCH ALL DATA ────────────────────────────────────────────────────────
 
-def fetch_filter_data(filter_config: dict, cutoff: int) -> pl.DataFrame:
+def fetch_filter_data(filter_config: dict, cutoff: int, end_cutoff: int = None) -> pl.DataFrame:
     filter_id = filter_config["id"]
     filter_name = filter_config["name"]
     unit = filter_config["unit"]
@@ -157,7 +162,7 @@ def fetch_filter_data(filter_config: dict, cutoff: int) -> pl.DataFrame:
     print(f"\n📡 Fetching: {filter_name} (ID: {filter_id})")
 
     all_timestamps = fetch_timestamps(filter_id)
-    filtered_timestamps = filter_timestamps(all_timestamps, cutoff)
+    filtered_timestamps = filter_timestamps(all_timestamps, cutoff, end_cutoff)
     print(f"   Found {len(filtered_timestamps)} chunks to fetch")
 
     all_frames = []
@@ -185,23 +190,28 @@ def fetch_filter_data(filter_config: dict, cutoff: int) -> pl.DataFrame:
     write_disposition="append",
     primary_key=["timestamp", "filter_id"]
 )
-def energy_timeseries_resource(cutoff: int):
+def energy_timeseries_resource(cutoff: int, end_cutoff: int = None):
     for filter_config in FILTERS:
-        df = fetch_filter_data(filter_config, cutoff)
+        df = fetch_filter_data(filter_config, cutoff, end_cutoff)
         yield df.to_dicts()
 
 # ── 7. MAIN ──────────────────────────────────────────────────────────────────
 
-def run_pipeline():
+def run_pipeline(start_date_override=None, end_date_override=None):
     from slack_alerts import alert_pipeline_start, alert_pipeline_success, alert_pipeline_failure
     import time
 
+    effective_start = start_date_override if start_date_override else START_DATE
+
     print("🚀 Starting Energy Timeseries Platform Pipeline")
-    print(f"📅 Fetching data from: {START_DATE}")
+    print(f"📅 Fetching data from: {effective_start}")
+    if end_date_override:
+        print(f"📅 Fetching data until: {end_date_override}")
     print(f"🔢 Filters: {len(FILTERS)}")
 
     start_time = time.time()
-    cutoff = get_cutoff_timestamp(START_DATE)
+    cutoff = get_cutoff_timestamp(effective_start)
+    end_cutoff = get_cutoff_timestamp(end_date_override) if end_date_override else None
 
     alert_pipeline_start(len(FILTERS), START_DATE)
 
@@ -213,7 +223,7 @@ def run_pipeline():
         )
 
         print("\n📦 Staging to MinIO → Loading to ClickHouse...")
-        load_info = pipeline.run(energy_timeseries_resource(cutoff=cutoff))
+        load_info = pipeline.run(energy_timeseries_resource(cutoff=cutoff, end_cutoff=end_cutoff))
 
         duration = time.time() - start_time
         total_rows = len(FILTERS) * 12935
@@ -227,8 +237,51 @@ def run_pipeline():
         alert_pipeline_failure(str(e))
         raise
 
+def parse_args():
+    import argparse
+    parser = argparse.ArgumentParser(description="SMARD Energy Pipeline")
+    parser.add_argument(
+        "--start-date",
+        type=str,
+        default=None,
+        help="Start date for backfill (YYYY-MM-DD). Defaults to config START_DATE."
+    )
+    parser.add_argument(
+        "--end-date",
+        type=str,
+        default=None,
+        help="End date for backfill (YYYY-MM-DD). Defaults to today."
+    )
+    parser.add_argument(
+        "--filter-id",
+        type=int,
+        default=None,
+        help="Backfill only a specific filter ID instead of all 10."
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    run_pipeline()
+    args = parse_args()
+
+    # Override START_DATE if backfill date provided
+    backfill_start = args.start_date if args.start_date else START_DATE
+
+    # Filter to single filter_id if specified
+    if args.filter_id:
+        original_filters = FILTERS[:]
+        FILTERS[:] = [f for f in FILTERS if f["id"] == args.filter_id]
+        if not FILTERS:
+            print(f"❌ Filter ID {args.filter_id} not found in config")
+            exit(1)
+        print(f"🎯 Backfill mode: filter {args.filter_id} only")
+
+    if args.start_date or args.end_date:
+        print(f"🔄 BACKFILL MODE")
+        print(f"   Start: {backfill_start}")
+        print(f"   End: {args.end_date or 'today'}")
+
+    run_pipeline(start_date_override=backfill_start, end_date_override=args.end_date)
 
 
 def run_quality_validation():
