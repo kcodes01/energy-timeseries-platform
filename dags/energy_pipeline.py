@@ -46,6 +46,7 @@ PIPELINE_ENV = {
     'DESTINATION__CLICKHOUSE__CREDENTIALS__SECURE': '0',
     'MINIO_ENDPOINT': 'http://minio:9000',
     'DBT_CLICKHOUSE_HOST': 'clickhouse',
+    'CLICKHOUSE_HOST': 'clickhouse',
 }
 
 def run_smard_pipeline():
@@ -118,7 +119,8 @@ with DAG(
         result = subprocess.run(
             [sys.executable, "/opt/airflow/great_expectations/run_validation.py"],
             capture_output=True,
-            text=True
+            text=True,
+            env=PIPELINE_ENV
         )
         print(result.stdout)
         if result.returncode != 0:

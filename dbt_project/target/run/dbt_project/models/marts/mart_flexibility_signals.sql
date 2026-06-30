@@ -4,13 +4,7 @@
     
     
         
-         
-
-
-        
-  
-
-  insert into `energy_marts_marts`.`mart_flexibility_signals__dbt_backup`
+        insert into `energy_marts_marts`.`mart_flexibility_signals__dbt_backup`
         ("timestamp", "date", "hour_of_day", "price_eur_mwh", "residual_load_mwh", "renewable_pct", "total_renewable_mwh", "consumption_signal")with prices as (
     select
         timestamp,

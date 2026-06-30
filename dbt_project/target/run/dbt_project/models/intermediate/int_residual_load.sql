@@ -1,9 +1,6 @@
 
 
-  create or replace view `energy_marts_intermediate`.`int_residual_load` 
-  
-    
-  
+  create view `energy_marts_intermediate`.`int_residual_load__dbt_tmp` 
   
     
     
@@ -33,7 +30,6 @@ select
     )                                    as renewable_pct
 from consumption
 order by timestamp
-    
   )
       
       

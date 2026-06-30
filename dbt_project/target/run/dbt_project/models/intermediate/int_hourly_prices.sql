@@ -1,9 +1,6 @@
 
 
-  create or replace view `energy_marts_intermediate`.`int_hourly_prices` 
-  
-    
-  
+  create view `energy_marts_intermediate`.`int_hourly_prices__dbt_tmp` 
   
     
     
@@ -24,7 +21,6 @@ select
 from prices
 group by date, hour_of_day
 order by date, hour_of_day
-    
   )
       
       

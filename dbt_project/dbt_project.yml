@@ -21,7 +21,3 @@ models:
       +schema: marts
       +materialized: table
 
-vars:
-  elementary:
-    database: energy
-    schema: elementary

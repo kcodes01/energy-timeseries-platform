@@ -1,9 +1,6 @@
 
 
-  create or replace view `energy_marts_staging`.`stg_energy_timeseries` 
-  
-    
-  
+  create view `energy_marts_staging`.`stg_energy_timeseries__dbt_tmp` 
   
     
     
@@ -34,7 +31,6 @@ cleaned as (
 )
 
 select * from cleaned
-    
   )
       
       

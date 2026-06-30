@@ -1,3 +1,4 @@
+import os
 import great_expectations as gx
 import clickhouse_connect
 import json
@@ -9,7 +10,7 @@ def run_and_report():
     print("=" * 60)
 
     client = clickhouse_connect.get_client(
-        host='localhost',
+        host=os.environ.get('CLICKHOUSE_HOST', 'localhost'),
         port=8123,
         username='clickhouse',
         password='clickhouse'

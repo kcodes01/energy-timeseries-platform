@@ -1,9 +1,6 @@
 
 
-  create or replace view `energy_marts_intermediate`.`int_renewable_generation` 
-  
-    
-  
+  create view `energy_marts_intermediate`.`int_renewable_generation__dbt_tmp` 
   
     
     
@@ -23,7 +20,6 @@ select
     if(filter_id = 1225, value, 0)   as offshore_wind_mwh,
     value                             as total_renewable_mwh
 from generation
-    
   )
       
       

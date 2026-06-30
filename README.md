@@ -5,15 +5,18 @@
 ![CI](https://github.com/kcodes01/energy-timeseries-platform/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![dlt](https://img.shields.io/badge/dlt-1.28-orange)
-![dbt](https://img.shields.io/badge/dbt-1.7-red)
+![dbt](https://img.shields.io/badge/dbt-1.8-red)
 ![ClickHouse](https://img.shields.io/badge/ClickHouse-26.5-yellow)
 ![Airflow](https://img.shields.io/badge/Airflow-2.9-green)
+![GreatExpectations](https://img.shields.io/badge/Great_Expectations-1.18-blueviolet)
 
 ---
 
 ## 📊 Dashboard — Energy Market Analytics Germany
 
 ![Energy Market Analytics Dashboard](docs/screenshots/dashboard.png)
+
+*Real German electricity market data — Jan 2025 to present. Daily prices, renewable capture prices, and flexibility signals.*
 
 ---
 
@@ -24,7 +27,7 @@
 │                      DATA SOURCES                           │
 │  SMARD API (Bundesnetzagentur — German Electricity Market)  │
 │  • 10 filters: prices, generation, consumption, forecasts   │
-│  • Hourly resolution • Jan 2025 → present • 129,350 rows   │
+│  • Hourly resolution • Jan 2025 → present • 1.4M+ rows      │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                            ▼
@@ -43,7 +46,7 @@
 │     DATA LAKE        │    │        DATA WAREHOUSE           │
 │  MinIO (S3-compat.)  │    │  ClickHouse                     │
 │  smard-energy-lake/  │    │  • Columnar time-series DB      │
-│  raw/                │    │  • 129,350 rows                 │
+│  raw/                │    │  • 1.4M+ rows                   │
 │  ├── price/          │    │  • Sub-100ms queries            │
 │  ├── generation/     │    │  • Schema auto-managed by dlt   │
 │  ├── consumption/    │    │  • Incremental state tracking   │
@@ -71,8 +74,18 @@
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
+│              DATA QUALITY & OBSERVABILITY                   │
+│  Great Expectations                                          │
+│  • 7 expectations: nulls, ranges, categories, freshness     │
+│  • Runs after every dbt transformation                      │
+│  dbt tests                                                   │
+│  • Schema validation, accepted values, uniqueness            │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
 │                  PRESENTATION LAYER                         │
-│  Metabase                                                   │
+│  Metabase                                                    │
 │  • Daily Electricity Price — Germany                        │
 │  • Renewable Capture Price vs Market Price                  │
 │  • Consumption Flexibility Signals                          │
@@ -83,11 +96,13 @@
 │              ORCHESTRATION & MONITORING                     │
 │                                                             │
 │  Airflow (daily @ 6am UTC)       Slack Alerts              │
-│  ingest_smard_data               • 🚀 Pipeline started     │
-│       ↓                          • ✅ Pipeline completed    │
-│  dbt_transform                   • 🔴 Task failed          │
-│       ↓                          • ⚠️  Quality warning      │
-│  dbt_test                                                   │
+│  ingest_smard_data                • 🚀 Pipeline started     │
+│       ↓                           • ✅ Pipeline completed    │
+│  dbt_transform                    • 🔴 Task failed          │
+│       ↓                           • ⚠️  Quality warning      │
+│  dbt_test                                                    │
+│       ↓                                                      │
+│  quality_validation (Great Expectations)                    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -102,6 +117,7 @@
 | **Data Lake** | MinIO (S3-compatible) | AWS S3 |
 | **Warehouse** | ClickHouse (Docker) | ClickHouse (Cloud) |
 | **Transformation** | dbt-clickhouse | dbt-clickhouse |
+| **Data Quality** | Great Expectations + dbt tests | Great Expectations + dbt tests |
 | **Orchestration** | Airflow (Docker) | Airflow (Managed) |
 | **BI** | Metabase (Docker) | Metabase (Cloud) |
 | **Monitoring** | Slack webhooks | Slack webhooks |
@@ -126,18 +142,62 @@
 | 🔮 Forecast | Wind + solar combined | 5097 | MWh |
 | 🔮 Forecast | Total production | 122 | MWh |
 
+**1.4M+ rows** loaded and growing daily via Airflow.
+
 ---
 
-## 🖼️ Screenshots
+## 🖼️ Full Pipeline in Action
 
-### MinIO Data Lake
+### 1️⃣ Ingestion — polars normalization + quality checks + MinIO staging
+![Pipeline Terminal](docs/screenshots/pipeline-terminal.png)
+
+### 2️⃣ Transformation — dbt models building the lineage
+![dbt Run](docs/screenshots/dbt-run-terminal.png)
+
+### 3️⃣ Warehouse — ClickHouse query across 1.4M rows in 0.03s
+![ClickHouse Query](docs/screenshots/clickhouse-query.png)
+
+### 4️⃣ Data Lake — Parquet files partitioned by category/filter/date
 ![MinIO Object Store](docs/screenshots/minio.png)
 
-### Airflow Orchestration
-![Airflow DAG](docs/screenshots/airflow.png)
+### 5️⃣ Data Quality — Great Expectations validation report
+![Great Expectations](docs/screenshots/ge-validation.png)
 
-### GitHub Actions CI/CD
+### 6️⃣ Orchestration — Airflow DAG, all 4 tasks green
+![Airflow DAG](docs/screenshots/airflow-4tasks.png)
+
+### 7️⃣ Monitoring — Slack alerts with real incident history
+![Slack Alerts](docs/screenshots/slack-alerts.png)
+
+### 8️⃣ CI/CD — GitHub Actions on every push
 ![GitHub Actions](docs/screenshots/github-actions.png)
+
+---
+
+## 🔄 dbt Lineage
+
+```
+stg_energy_timeseries (view)
+         │
+         ├──────────────────────────────────┐
+         │                                  │
+         ▼                                  ▼
+int_hourly_prices (view)     int_renewable_generation (view)
+         │                                  │
+         │                   ┌──────────────┘
+         │                   │
+         ▼                   ▼
+int_residual_load (view)     │
+         │                   │
+         └─────────┬─────────┘
+                   │
+         ┌─────────┼──────────────────┐
+         │         │                  │
+         ▼         ▼                  ▼
+mart_daily_   mart_capture_   mart_flexibility_
+price_summary    prices           signals
+  (table)        (table)          (table)
+```
 
 ---
 
@@ -150,7 +210,8 @@
 | **Ingestion** | dlt | 1.28 | Schema inference, incremental loading |
 | **Data Lake** | MinIO | Latest | S3-compatible Parquet storage |
 | **Warehouse** | ClickHouse | 26.5 | Columnar time-series analytics |
-| **Transformation** | dbt-clickhouse | 1.7 | SQL modeling, quality tests |
+| **Transformation** | dbt-clickhouse | 1.8 | SQL modeling, schema tests |
+| **Data Quality** | Great Expectations | 1.18 | Formal data contract validation |
 | **Orchestration** | Apache Airflow | 2.9 | DAG scheduling, retries |
 | **BI** | Metabase | Latest | Self-serve dashboards |
 | **Monitoring** | Slack webhooks | - | Real-time alerts |
@@ -197,10 +258,14 @@ cd pipeline && python smard_pipeline.py
 # 7. Run dbt
 cd ../dbt_project && dbt run && dbt test
 
-# 8. Open services
+# 8. Run data quality validation
+cd .. && python3 great_expectations/run_validation.py
+
+# 9. Open services
 open http://localhost:3000   # Metabase
 open http://localhost:9001   # MinIO
 open http://localhost:8080   # Airflow
+open http://localhost:8123/play  # ClickHouse
 ```
 
 ---
@@ -212,7 +277,7 @@ open http://localhost:8080   # Airflow
 | **Metabase** | http://localhost:3000 | set on first visit |
 | **MinIO Console** | http://localhost:9001 | minioadmin / minioadmin |
 | **Airflow** | http://localhost:8080 | admin / admin123 |
-| **ClickHouse** | http://localhost:8123 | clickhouse / clickhouse |
+| **ClickHouse** | http://localhost:8123/play | clickhouse / clickhouse |
 
 ---
 

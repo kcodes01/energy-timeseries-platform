@@ -4,13 +4,7 @@
     
     
         
-         
-
-
-        
-  
-
-  insert into `energy_marts_marts`.`mart_capture_prices__dbt_backup`
+        insert into `energy_marts_marts`.`mart_capture_prices__dbt_backup`
         ("date", "capture_price_eur_mwh", "avg_market_price_eur_mwh", "total_renewable_mwh", "solar_mwh", "onshore_wind_mwh", "offshore_wind_mwh")with base as (
     select
         p.date                                      as date,
